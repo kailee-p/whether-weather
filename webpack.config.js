@@ -17,10 +17,13 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = env => {
   return {
     plugins,
-    entry: path.resolve(__dirname, 'src', 'index.js'),
+    entry: './src/index.tsx',
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js'
+    },
+    resolve: {
+      extensions: [".tsx", ".ts", ".js", ".json"],
     },
     devServer: {
       contentBase: path.resolve(__dirname, 'dist'),
@@ -32,6 +35,7 @@ module.exports = env => {
     },
     module: {
       rules: [
+        //JavaScript
         {
           test: /\.(jsx|js)$/,
           include: path.resolve(__dirname, 'src'),
@@ -48,6 +52,7 @@ module.exports = env => {
             }
           }]
         },
+        //CSS
         {
           test: /\.css$/i,
           include: path.resolve(__dirname, 'src'),
@@ -65,7 +70,11 @@ module.exports = env => {
               }
             }
           ]
-        }
+        }, 
+        //TypeScript
+        {
+          test: /\.tsx?$/, use: ["ts-loader"], exclude: /node_modules/ 
+        },
       ]
     }
   }
