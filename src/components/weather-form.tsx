@@ -5,8 +5,9 @@ function WeatherForm(): JSX.Element {
   
   const handleSubmit = (evt: React.FormEvent<EventTarget>): void => {
       evt.preventDefault();
-      console.log(`Submitting Location ${location}`)
+      console.log(`Submitting Location ${location}`);
   }
+
   return (
     <form onSubmit={handleSubmit}>
       <label>

@@ -18,6 +18,12 @@ module.exports = env => {
   return {
     plugins,
     entry: './src/index.tsx',
+    mode: process.env.NODE_ENV,
+    target: 'node',
+    //does not minify code for bugfixing
+    optimization: {
+      minimize: false,
+    },
     output: {
       path: path.resolve(__dirname, 'dist'),
       filename: 'bundle.js'

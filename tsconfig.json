@@ -5,7 +5,8 @@
     "lib": ["es5", "es6", "dom"],
     "preserveConstEnums": true,
     "jsx": "react",
+    "module": "commonjs"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/**/*.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
