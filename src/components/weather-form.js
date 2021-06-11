@@ -24,7 +24,6 @@ function WeatherForm() {
     const [location, setLocation] = react_1.useState("");
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log(location);
         fetch('/weather-report', {
             method: 'POST',
             headers: {
