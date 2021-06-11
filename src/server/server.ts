@@ -18,8 +18,6 @@ app.use(weatherRoutes);
 
 const uri: string = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@whether-weather-cluster.guyni.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 
-console.log('URI', uri);
-
 const options = { useNewUrlParser: true, useUnifiedTopology: true }
 mongoose.set("useFindAndModify", false);
 

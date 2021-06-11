@@ -4,10 +4,6 @@ const weatherReportController = require('../controllers/weatherReportController'
 
 const router: Router = Router();
 
-router.get('/',
-(req: Request, res: Response, next: NextFunction) => res.status(200)
-);
-
 router.post('/weather-report',
   getWeatherReport,
   saveWeatherReport,
