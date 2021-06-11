@@ -5,7 +5,19 @@ function WeatherForm(): JSX.Element {
   
   const handleSubmit = (evt: React.FormEvent<EventTarget>): void => {
       evt.preventDefault();
-      console.log(`Submitting Location ${location}`);
+      console.log(location);
+      fetch('/weather-report', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          location: location,
+        }),
+      })
+        .then((res) => console.log('res', res))
+        .catch((err) => console.log('Error in POST request for weather report ', err))
   }
 
   return (

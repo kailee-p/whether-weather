@@ -1,10 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAllWeatherReports = exports.getAllWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = void 0;
-//calls API to retrieve weather report based on user input
+//calls weather API to retrieve weather report based on user input
 const getWeatherReport = async (req, res, next) => {
     try {
         console.log('getWeatherReport middleware called');
+        console.log('req.body', req.body);
         return next();
     }
     catch (err) {

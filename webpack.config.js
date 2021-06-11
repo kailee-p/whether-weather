@@ -37,7 +37,11 @@ module.exports = env => {
       clientLogLevel: 'silent',
       port: 9000,
       historyApiFallback: true,
-      hot: true
+      hot: true,
+      proxy: {
+        '/weather-report/**': {
+          target: 'http://localhost:3000',
+      }
     },
     module: {
       rules: [

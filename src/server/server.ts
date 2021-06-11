@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import weatherRoutes from './routes/api';
-import { Server } from 'http';
+// import { Server } from 'http';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,6 +12,8 @@ const app: Express = express();
 const PORT: number = 3000;
 
 app.use(express.static('dist'));
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(cors());
 app.use(weatherRoutes);
 

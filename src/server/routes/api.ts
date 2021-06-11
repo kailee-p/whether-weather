@@ -1,6 +1,5 @@
 import { Response, Request, NextFunction, Router } from 'express';
 import { getWeatherReport, saveWeatherReport, getAllWeatherReports, deleteAllWeatherReports } from '../controllers/weatherReportControllers';
-const weatherReportController = require('../controllers/weatherReportController');
 
 const router: Router = Router();
 
@@ -10,12 +9,12 @@ router.post('/weather-report',
   (req: Request, res: Response, next: NextFunction) => res.status(200)
 );
 
-router.get('/weather-logs',
+router.get('/weather-report/weather-logs',
   getAllWeatherReports,
   (req: Request, res: Response, next: NextFunction) => res.status(200)
 );
 
-router.delete('/delete-all',
+router.delete('/weather-report/delete-all',
   deleteAllWeatherReports,
   (req: Request, res: Response, next: NextFunction) => res.status(200)
 );

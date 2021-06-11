@@ -1,10 +1,11 @@
 import { Response, Request, NextFunction } from 'express';
 import { WeatherReport } from '../../types/weather-report';
 
-//calls API to retrieve weather report based on user input
+//calls weather API to retrieve weather report based on user input
 export const getWeatherReport = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     console.log('getWeatherReport middleware called');
+    console.log('req.body', req.body);
     return next();
   } catch (err) {
 
