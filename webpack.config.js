@@ -26,7 +26,8 @@ module.exports = env => {
     },
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js'
+      filename: 'bundle.js',
+      publicPath: '/',
     },
     resolve: {
       extensions: [".tsx", ".ts", ".js", ".json"],
@@ -36,11 +37,14 @@ module.exports = env => {
       open: true,
       clientLogLevel: 'silent',
       port: 9000,
-      historyApiFallback: true,
+      historyApiFallback: false,
       hot: true,
       proxy: {
-        '/weather-report/**': {
+        '/weather-report': {
           target: 'http://localhost:3000',
+          secure: false,
+          changeOrigin: true,
+        }
       }
     },
     module: {

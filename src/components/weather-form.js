@@ -24,13 +24,16 @@ function WeatherForm() {
     const [location, setLocation] = react_1.useState("");
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        console.log(location);
         fetch('/weather-report', {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: location,
+            body: JSON.stringify({
+                location: location,
+            }),
         })
             .then((res) => console.log('res', res))
             .catch((err) => console.log('Error in POST request for weather report ', err));
