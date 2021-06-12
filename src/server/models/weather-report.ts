@@ -28,7 +28,7 @@ const weatherReportSchema: Schema = new Schema(
       required: true
     },
     timestamp: {
-      type: Number,
+      type: String,
       required: true
     }
   }

@@ -1,4 +1,5 @@
 const fetch = require('node-fetch');
+const tuc = require('temp-units-conv');
 import { Response, Request, NextFunction } from 'express';
 import WeatherReport from '../models/weather-report';
 import { WeatherReport as WeatherReportType } from '../../types/weather-report';
@@ -14,7 +15,6 @@ export const getLocationFromUserInput = async (req: Request, res: Response, next
   fetch(uri, { headers: { Authorization: auth }})
   .then((res: any) => res.json())
   .then((witData: any) => {
-    console.log('wit location array', witData.entities['wit$location:location']);
     const locationArr = witData.entities['wit$location:location'];
     if (!locationArr) {
       console.log('no cities error')
@@ -69,16 +69,22 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
   .then((res: any) => res.json())
   .then((res: any) => res.data.getCityByName)
   .then((weatherData: any) => {
+    //convert temperatures to Fahrenheit rounded to nearest integer
+    const actualTempFahrenheit: number = Math.round(tuc.k2f(weatherData.weather.temperature.actual));
+    const feelsLikeTempFahrenheit: number = Math.round(tuc.k2f(weatherData.weather.temperature.feelsLike));
+    //convert time stamp to string
+    const timestampString: String = (new Date(weatherData.weather.timestamp * 1000)).toString();
+
+    //store data in res.locals to pass to next piece of middleware
     res.locals.weatherReport = {
       city: weatherData.name,
       country: weatherData.country,
       weatherTitle: weatherData.weather.summary.title,
       weatherDesc: weatherData.weather.summary.description,
-      actualTemp: weatherData.weather.temperature.actual,
-      feelsLikeTemp: weatherData.weather.temperature.feelsLike,
-      timestamp: weatherData.weather.timestamp
+      actualTemp: actualTempFahrenheit,
+      feelsLikeTemp: feelsLikeTempFahrenheit,
+      timestamp: timestampString,
     }
-
     return next();
   })
   .catch((err: any) => console.log('Error fetching GraphQL query: ', err));

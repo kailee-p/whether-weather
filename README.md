@@ -12,3 +12,4 @@ https://medium.com/the-andela-way/how-to-set-up-an-express-api-using-webpack-and
 
 https://github.com/konstantinmuenster/graphql-weather-api
 
+https://levelup.gitconnected.com/handling-errors-in-mongoose-express-for-display-in-react-d966287f573b

@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAllWeatherReports = exports.getLastTenWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = exports.getLocationFromUserInput = void 0;
 const fetch = require('node-fetch');
+const tuc = require('temp-units-conv');
 const weather_report_1 = __importDefault(require("../models/weather-report"));
 //gets location from user input using wit.ai NLP
 const getLocationFromUserInput = async (req, res, next) => {
@@ -15,7 +16,6 @@ const getLocationFromUserInput = async (req, res, next) => {
     fetch(uri, { headers: { Authorization: auth } })
         .then((res) => res.json())
         .then((witData) => {
-        console.log('wit location array', witData.entities['wit$location:location']);
         const locationArr = witData.entities['wit$location:location'];
         if (!locationArr) {
             console.log('no cities error');
@@ -69,14 +69,20 @@ const getWeatherReport = async (req, res, next) => {
         .then((res) => res.json())
         .then((res) => res.data.getCityByName)
         .then((weatherData) => {
+        //convert temperatures to Fahrenheit rounded to nearest integer
+        const actualTempFahrenheit = Math.round(tuc.k2f(weatherData.weather.temperature.actual));
+        const feelsLikeTempFahrenheit = Math.round(tuc.k2f(weatherData.weather.temperature.feelsLike));
+        //convert time stamp to string
+        const timestampString = (new Date(weatherData.weather.timestamp * 1000)).toString();
+        //store data in res.locals to pass to next piece of middleware
         res.locals.weatherReport = {
             city: weatherData.name,
             country: weatherData.country,
             weatherTitle: weatherData.weather.summary.title,
             weatherDesc: weatherData.weather.summary.description,
-            actualTemp: weatherData.weather.temperature.actual,
-            feelsLikeTemp: weatherData.weather.temperature.feelsLike,
-            timestamp: weatherData.weather.timestamp
+            actualTemp: actualTempFahrenheit,
+            feelsLikeTemp: feelsLikeTempFahrenheit,
+            timestamp: timestampString,
         };
         return next();
     })

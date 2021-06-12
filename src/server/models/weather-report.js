@@ -27,7 +27,7 @@ const weatherReportSchema = new mongoose_1.Schema({
         required: true
     },
     timestamp: {
-        type: Number,
+        type: String,
         required: true
     }
 });
