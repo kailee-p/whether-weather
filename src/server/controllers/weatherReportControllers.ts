@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
-
 import { Response, Request, NextFunction } from 'express';
-import { WeatherReport } from '../../types/weather-report';
+import WeatherReport from '../models/weather-report';
+import { WeatherReport as WeatherReportType } from '../../types/weather-report';
 
 //calls weather API to retrieve weather report based on user input
 export const getWeatherReport = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -42,7 +42,7 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
   .then((res: any) => res.data.getCityByName)
   .then((weatherData: any) => {
     res.locals.weatherReport = {
-      name: weatherData.name,
+      city: weatherData.name,
       country: weatherData.country,
       weatherTitle: weatherData.weather.summary.title,
       weatherDesc: weatherData.weather.summary.description,
@@ -50,7 +50,7 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
       feelsLikeTemp: weatherData.weather.temperature.feelsLike,
       timestamp: weatherData.weather.timestamp
     }
-    
+
     return next();
   })
   .catch((err: any) => console.log('Error fetching GraphQL query: ', err));
@@ -58,12 +58,23 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
 
 //saves new weather report from GraphQL weather API in database
 export const saveWeatherReport = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    console.log('saveWeatherReport middleware called');
-    return next();
-  } catch (err) {
-
-  }
+  console.log('saveWeatherReport middleware called');
+  const { city, country, weatherTitle, weatherDesc, actualTemp, feelsLikeTemp, timestamp } = res.locals.weatherReport;
+  console.log('city', city);
+  WeatherReport.create({
+    city,
+    country,
+    weatherTitle,
+    weatherDesc,
+    actualTemp,
+    feelsLikeTemp,
+    timestamp
+  })
+    .then((document: WeatherReportType) => {
+      console.log(document);
+      res.send(document);
+    })
+    .catch((err: unknown) => console.log('ERR in saveWeatherReport: ', err));
 }
 
 //retrieves all weather reports from database for display

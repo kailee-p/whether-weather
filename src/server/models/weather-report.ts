@@ -1,4 +1,4 @@
-import { WeatherReport } from '../../types/weather-report';
+import { WeatherReport as WeatherReportType } from '../../types/weather-report';
 import { model, Schema } from 'mongoose';
 
 const weatherReportSchema: Schema = new Schema(
@@ -34,4 +34,4 @@ const weatherReportSchema: Schema = new Schema(
   }
 )
 
-export default model<WeatherReport>('weatherreport', weatherReportSchema);
+export default model<WeatherReportType>('weatherreport', weatherReportSchema);

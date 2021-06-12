@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAllWeatherReports = exports.getAllWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = void 0;
 const fetch = require('node-fetch');
+const weather_report_1 = __importDefault(require("../models/weather-report"));
 //calls weather API to retrieve weather report based on user input
 const getWeatherReport = async (req, res, next) => {
     console.log('getWeatherReport middleware called');
@@ -39,7 +43,7 @@ const getWeatherReport = async (req, res, next) => {
         .then((res) => res.data.getCityByName)
         .then((weatherData) => {
         res.locals.weatherReport = {
-            name: weatherData.name,
+            city: weatherData.name,
             country: weatherData.country,
             weatherTitle: weatherData.weather.summary.title,
             weatherDesc: weatherData.weather.summary.description,
@@ -47,7 +51,6 @@ const getWeatherReport = async (req, res, next) => {
             feelsLikeTemp: weatherData.weather.temperature.feelsLike,
             timestamp: weatherData.weather.timestamp
         };
-        console.log(res.locals.weatherReport);
         return next();
     })
         .catch((err) => console.log('Error fetching GraphQL query: ', err));
@@ -55,12 +58,23 @@ const getWeatherReport = async (req, res, next) => {
 exports.getWeatherReport = getWeatherReport;
 //saves new weather report from GraphQL weather API in database
 const saveWeatherReport = async (req, res, next) => {
-    try {
-        console.log('saveWeatherReport middleware called');
-        return next();
-    }
-    catch (err) {
-    }
+    console.log('saveWeatherReport middleware called');
+    const { city, country, weatherTitle, weatherDesc, actualTemp, feelsLikeTemp, timestamp } = res.locals.weatherReport;
+    console.log('city', city);
+    weather_report_1.default.create({
+        city,
+        country,
+        weatherTitle,
+        weatherDesc,
+        actualTemp,
+        feelsLikeTemp,
+        timestamp
+    })
+        .then((document) => {
+        console.log(document);
+        res.send(document);
+    })
+        .catch((err) => console.log('ERR in saveWeatherReport: ', err));
 };
 exports.saveWeatherReport = saveWeatherReport;
 //retrieves all weather reports from database for display
