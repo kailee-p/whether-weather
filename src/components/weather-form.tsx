@@ -17,21 +17,21 @@ function WeatherForm(): JSX.Element {
       }),
     })
       .then((res: any) => res.json())
-      .then((res: any) => console.log('response from Kailee\'s server', res))
+      .then((res: any) => console.log('response from Kailees server', res))
       .catch((err: unknown) => console.log('Error in POST request for weather report ', err))
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form id="weather-form" onSubmit={handleSubmit}>
       <label>
         <input
-          id="message-input"
+          id="weather-message-input"
           type="text"
           value={message}
           onChange={e => setMessage(e.target.value)}
         />
       </label>
-      <input id="message-submit-button" type="submit" value="submit" />
+      <input id="weather-message-submit-button" type="submit" value="submit" />
     </form>
   );
 }

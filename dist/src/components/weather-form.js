@@ -35,12 +35,12 @@ function WeatherForm() {
             }),
         })
             .then((res) => res.json())
-            .then((res) => console.log('response from Kailee\'s server', res))
+            .then((res) => console.log('response from Kailees server', res))
             .catch((err) => console.log('Error in POST request for weather report ', err));
     };
-    return (react_1.default.createElement("form", { onSubmit: handleSubmit },
+    return (react_1.default.createElement("form", { id: "weather-form", onSubmit: handleSubmit },
         react_1.default.createElement("label", null,
-            react_1.default.createElement("input", { id: "message-input", type: "text", value: message, onChange: e => setMessage(e.target.value) })),
-        react_1.default.createElement("input", { id: "message-submit-button", type: "submit", value: "submit" })));
+            react_1.default.createElement("input", { id: "weather-message-input", type: "text", value: message, onChange: e => setMessage(e.target.value) })),
+        react_1.default.createElement("input", { id: "weather-message-submit-button", type: "submit", value: "submit" })));
 }
 exports.default = WeatherForm;
