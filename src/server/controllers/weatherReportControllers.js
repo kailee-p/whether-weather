@@ -7,7 +7,6 @@ const getWeatherReport = async (req, res, next) => {
     try {
         console.log('getWeatherReport middleware called');
         const location = req.body.location;
-        console.log('location', location);
         //GraphQL query for location data
         const locationQuery = `
     query { getCityByName(name: "${location}") {
@@ -26,7 +25,6 @@ const getWeatherReport = async (req, res, next) => {
         }
       }
     }`;
-        console.log('locationQuery', locationQuery);
         //queries GraphQL API for weather information based on user location input
         fetch('https://graphql-weather-api.herokuapp.com/', {
             method: 'POST',
@@ -39,7 +37,7 @@ const getWeatherReport = async (req, res, next) => {
             }),
         })
             .then((res) => res.json())
-            .then((data) => console.log('data', data))
+            .then((weatherData) => console.log('weatherData', weatherData))
             .catch((err) => console.log('Error fetching GraphQL query: ', err));
         return next();
     }
