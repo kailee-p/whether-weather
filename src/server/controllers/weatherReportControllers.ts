@@ -17,12 +17,10 @@ export const getLocationFromUserInput = async (req: Request, res: Response, next
   .then((witData: any) => {
     const locationArr = witData.entities['wit$location:location'];
     if (!locationArr) {
-      console.log('no cities error')
-      res.send('I wasn\'t able to detect any cities in your question. Please ask me something else.')
+      res.json('I wasn\'t able to detect any cities in your question. Please ask me something else.')
       return next('ERROR: no cities');
     } else if (locationArr.length > 1) {
-      console.log('too many cities error')
-      res.send('Your question has too many cities for me to look up! Please ask about one city only.');
+      res.json('Your question has too many cities for me to look up! Please ask about one city only.');
       return next('ERROR: too many cities');
     } 
     res.locals.location = locationArr[0].body;
@@ -69,6 +67,11 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
   .then((res: any) => res.json())
   .then((res: any) => res.data.getCityByName)
   .then((weatherData: any) => {
+    //error for no weather data retrieval
+    if (weatherData === null) {
+      res.json('I wasn\'t able to find any weather data for you. Please try again.');
+      return next('ERROR: no weather data');
+    }
     //convert temperatures to Fahrenheit rounded to nearest integer
     const actualTempFahrenheit: number = Math.round(tuc.k2f(weatherData.weather.temperature.actual));
     const feelsLikeTempFahrenheit: number = Math.round(tuc.k2f(weatherData.weather.temperature.feelsLike));
@@ -105,7 +108,7 @@ export const saveWeatherReport = async (req: Request, res: Response, next: NextF
     timestamp
   })
     .then(() => {
-      return res.json(res.locals.weatherReport);
+      return res.status(200).json(res.locals.weatherReport);
     })
     .catch((err: unknown) => console.log('ERR in saveWeatherReport: ', err));
 }
@@ -118,7 +121,7 @@ export const getLastTenWeatherReports = async (req: Request, res: Response, next
     .sort({ '_id': -1 })
     .limit(10)
     .exec()
-    .then((lastTenReports: (WeatherReportType)[]) => res.json(lastTenReports))
+    .then((lastTenReports: (WeatherReportType)[]) => res.status(200).json(lastTenReports))
     .catch((err: unknown) => console.log('ERR in getLastTenWeatherReports: ', err))
 }
 
@@ -128,6 +131,6 @@ export const deleteAllWeatherReports = async (req: Request, res: Response, next:
 
   WeatherReport.collection
     .drop()
-    .then(() => res.send('You successfully deleted all the weather reports.'))
+    .then(() => res.status(200).send('You successfully deleted all the weather reports.'))
     .catch((err: unknown) => console.log('ERR in deleteAllWeatherReports: ', err))
 }

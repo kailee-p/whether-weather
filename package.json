@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "restart": "killall node && npm run dev",
     "dev": "tsc --watch & nodemon ./src/server/server.ts & webpack serve --open",
     "test": "jest"
   },

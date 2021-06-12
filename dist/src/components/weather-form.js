@@ -24,7 +24,6 @@ function WeatherForm() {
     const [message, setMessage] = react_1.useState("");
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log('message', message);
         fetch('/weather-report', {
             method: 'POST',
             headers: {
@@ -35,7 +34,8 @@ function WeatherForm() {
                 message: message,
             }),
         })
-            .then((res) => console.log('POST request response', res))
+            .then((res) => res.json())
+            .then((res) => console.log('response from Kailee\'s server', res))
             .catch((err) => console.log('Error in POST request for weather report ', err));
     };
     return (react_1.default.createElement("form", { onSubmit: handleSubmit },

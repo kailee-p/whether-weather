@@ -12,7 +12,7 @@ const plugins = [
 ];
 
 // only enable hot in development
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV !== 'production') {
   plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
@@ -41,6 +41,7 @@ module.exports = env => {
       port: 9000,
       historyApiFallback: false,
       hot: true,
+      watchContentBase: true,
       proxy: {
         '/weather-report': {
           target: 'http://[::1]:3000',
@@ -64,7 +65,8 @@ module.exports = env => {
                   "targets": "defaults" 
                 }],
                 '@babel/preset-react'
-              ]
+              ], 
+              cacheDirectory: true, 
             }
           }]
         },
@@ -89,7 +91,7 @@ module.exports = env => {
         }, 
         //TypeScript
         {
-          test: /\.tsx?$/, use: ["ts-loader"], exclude: /node_modules/ 
+          test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ 
         },
       ]
     }
