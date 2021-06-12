@@ -4,45 +4,53 @@ exports.deleteAllWeatherReports = exports.getAllWeatherReports = exports.saveWea
 const fetch = require('node-fetch');
 //calls weather API to retrieve weather report based on user input
 const getWeatherReport = async (req, res, next) => {
-    try {
-        console.log('getWeatherReport middleware called');
-        const location = req.body.location;
-        //GraphQL query for location data
-        const locationQuery = `
-    query { getCityByName(name: "${location}") {
-        name
-        country
-        weather {
-          summary {
-            title
-            description
-          }
-          temperature {
-            actual
-            feelsLike
-          }
-          timestamp
+    console.log('getWeatherReport middleware called');
+    const location = req.body.location;
+    //GraphQL query for location data
+    const locationQuery = `
+  query { getCityByName(name: "${location}") {
+      name
+      country
+      weather {
+        summary {
+          title
+          description
         }
+        temperature {
+          actual
+          feelsLike
+        }
+        timestamp
       }
-    }`;
-        //queries GraphQL API for weather information based on user location input
-        fetch('https://graphql-weather-api.herokuapp.com/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                query: locationQuery,
-            }),
-        })
-            .then((res) => res.json())
-            .then((weatherData) => console.log('weatherData', weatherData))
-            .catch((err) => console.log('Error fetching GraphQL query: ', err));
+    }
+  }`;
+    //queries GraphQL API for weather information based on user location input
+    fetch('https://graphql-weather-api.herokuapp.com/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            query: locationQuery,
+        }),
+    })
+        .then((res) => res.json())
+        .then((res) => res.data.getCityByName)
+        .then((weatherData) => {
+        res.locals.weatherReport = {
+            name: weatherData.name,
+            country: weatherData.country,
+            weatherTitle: weatherData.weather.summary.title,
+            weatherDesc: weatherData.weather.summary.description,
+            actualTemp: weatherData.weather.temperature.actual,
+            feelsLikeTemp: weatherData.weather.temperature.feelsLike,
+            timestamp: weatherData.weather.timestamp
+        };
+        console.log(res.locals.weatherReport);
         return next();
-    }
-    catch (err) {
-    }
+    })
+        .catch((err) => console.log('Error fetching GraphQL query: ', err));
 };
 exports.getWeatherReport = getWeatherReport;
 //saves new weather report from GraphQL weather API in database
