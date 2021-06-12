@@ -50,9 +50,7 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
       feelsLikeTemp: weatherData.weather.temperature.feelsLike,
       timestamp: weatherData.weather.timestamp
     }
-
-    console.log(res.locals.weatherReport);
-
+    
     return next();
   })
   .catch((err: any) => console.log('Error fetching GraphQL query: ', err));
