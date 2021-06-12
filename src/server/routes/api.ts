@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import { getWeatherReport, saveWeatherReport, getLastTenWeatherReports, deleteAllWeatherReports } from '../controllers/weatherReportControllers';
+import { getLocationFromUserInput, getWeatherReport, saveWeatherReport, getLastTenWeatherReports, deleteAllWeatherReports } from '../controllers/weatherReportControllers';
 
 const router: Router = Router();
 
 router.post('/weather-report',
+  getLocationFromUserInput, 
   getWeatherReport,
   saveWeatherReport
 );

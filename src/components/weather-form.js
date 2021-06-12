@@ -21,9 +21,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 function WeatherForm() {
-    const [location, setLocation] = react_1.useState("");
+    const [message, setMessage] = react_1.useState("");
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        console.log('message', message);
         fetch('/weather-report', {
             method: 'POST',
             headers: {
@@ -31,15 +32,15 @@ function WeatherForm() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                location: location,
+                message: message,
             }),
         })
-            .then((res) => console.log('res', res))
+            .then((res) => console.log('POST request response', res))
             .catch((err) => console.log('Error in POST request for weather report ', err));
     };
     return (react_1.default.createElement("form", { onSubmit: handleSubmit },
         react_1.default.createElement("label", null,
-            react_1.default.createElement("input", { id: "location-input", type: "text", value: location, onChange: e => setLocation(e.target.value) })),
-        react_1.default.createElement("input", { id: "location-submit-button", type: "submit", value: "submit" })));
+            react_1.default.createElement("input", { id: "message-input", type: "text", value: message, onChange: e => setMessage(e.target.value) })),
+        react_1.default.createElement("input", { id: "message-submit-button", type: "submit", value: "submit" })));
 }
 exports.default = WeatherForm;

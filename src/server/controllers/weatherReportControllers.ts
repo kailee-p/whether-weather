@@ -3,10 +3,38 @@ import { Response, Request, NextFunction } from 'express';
 import WeatherReport from '../models/weather-report';
 import { WeatherReport as WeatherReportType } from '../../types/weather-report';
 
+//gets location from user input using wit.ai NLP
+export const getLocationFromUserInput = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  console.log('processUserInput middleware called');
+  
+  const question = req.body.message;
+  const uri = 'https://api.wit.ai/message?v=20200513&q=' + question; 
+  const auth = 'Bearer ' + process.env.SERVER_TOKEN;
+  
+  fetch(uri, { headers: { Authorization: auth }})
+  .then((res: any) => res.json())
+  .then((witData: any) => {
+    console.log('wit location array', witData.entities['wit$location:location']);
+    const locationArr = witData.entities['wit$location:location'];
+    if (!locationArr) {
+      console.log('no cities error')
+      res.send('I wasn\'t able to detect any cities in your question. Please ask me something else.')
+      return next('ERROR: no cities');
+    } else if (locationArr.length > 1) {
+      console.log('too many cities error')
+      res.send('Your question has too many cities for me to look up! Please ask about one city only.');
+      return next('ERROR: too many cities');
+    } 
+    res.locals.location = locationArr[0].body;
+    return next();
+  })
+  .catch((err: any) => console.log('ERR in getLocationFromUserInput: ', err));
+}
+
 //calls weather API to retrieve weather report based on user input
 export const getWeatherReport = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   console.log('getWeatherReport middleware called');
-  const location = req.body.location;
+  const location = res.locals.location;
 
   //GraphQL query for location data
   const locationQuery = `

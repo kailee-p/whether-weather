@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 function WeatherForm(): JSX.Element {
-  const [location, setLocation] = useState("");
+  const [message, setMessage] = useState("");
   
   const handleSubmit = (evt: React.FormEvent<EventTarget>): void => {
     evt.preventDefault();
-    
+    console.log('message', message);
     fetch('/weather-report', {
       method: 'POST',
       headers: {
@@ -13,24 +13,24 @@ function WeatherForm(): JSX.Element {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        location: location,
+        message: message,
       }),
     })
-      .then((res) => console.log('res', res))
-      .catch((err) => console.log('Error in POST request for weather report ', err))
+      .then((res: any) => console.log('POST request response', res))
+      .catch((err: unknown) => console.log('Error in POST request for weather report ', err))
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <label>
         <input
-          id="location-input"
+          id="message-input"
           type="text"
-          value={location}
-          onChange={e => setLocation(e.target.value)}
+          value={message}
+          onChange={e => setMessage(e.target.value)}
         />
       </label>
-      <input id="location-submit-button" type="submit" value="submit" />
+      <input id="message-submit-button" type="submit" value="submit" />
     </form>
   );
 }

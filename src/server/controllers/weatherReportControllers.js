@@ -3,13 +3,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAllWeatherReports = exports.getLastTenWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = void 0;
+exports.deleteAllWeatherReports = exports.getLastTenWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = exports.getLocationFromUserInput = void 0;
 const fetch = require('node-fetch');
 const weather_report_1 = __importDefault(require("../models/weather-report"));
+//gets location from user input using wit.ai NLP
+const getLocationFromUserInput = async (req, res, next) => {
+    console.log('processUserInput middleware called');
+    const question = req.body.message;
+    const uri = 'https://api.wit.ai/message?v=20200513&q=' + question;
+    const auth = 'Bearer ' + process.env.SERVER_TOKEN;
+    fetch(uri, { headers: { Authorization: auth } })
+        .then((res) => res.json())
+        .then((witData) => {
+        console.log('wit location array', witData.entities['wit$location:location']);
+        const locationArr = witData.entities['wit$location:location'];
+        if (!locationArr) {
+            console.log('no cities error');
+            res.send('I wasn\'t able to detect any cities in your question. Please ask me something else.');
+            return next('ERROR: no cities');
+        }
+        else if (locationArr.length > 1) {
+            console.log('too many cities error');
+            res.send('Your question has too many cities for me to look up! Please ask about one city only.');
+            return next('ERROR: too many cities');
+        }
+        res.locals.location = locationArr[0].body;
+        return next();
+    })
+        .catch((err) => console.log('ERR in getLocationFromUserInput: ', err));
+};
+exports.getLocationFromUserInput = getLocationFromUserInput;
 //calls weather API to retrieve weather report based on user input
 const getWeatherReport = async (req, res, next) => {
     console.log('getWeatherReport middleware called');
-    const location = req.body.location;
+    const location = res.locals.location;
     //GraphQL query for location data
     const locationQuery = `
   query { getCityByName(name: "${location}") {
