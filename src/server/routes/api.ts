@@ -1,22 +1,19 @@
-import { Response, Request, Router } from 'express';
-import { getWeatherReport, saveWeatherReport, getAllWeatherReports, deleteAllWeatherReports } from '../controllers/weatherReportControllers';
+import { Router } from 'express';
+import { getWeatherReport, saveWeatherReport, getLastTenWeatherReports, deleteAllWeatherReports } from '../controllers/weatherReportControllers';
 
 const router: Router = Router();
 
 router.post('/weather-report',
   getWeatherReport,
-  saveWeatherReport,
-  (req: Request, res: Response) => res.status(200).send('You saved the weather report!')
+  saveWeatherReport
 );
 
 router.get('/weather-report/weather-logs',
-  getAllWeatherReports,
-  (req: Request, res: Response) => res.status(200)
+  getLastTenWeatherReports
 );
 
 router.delete('/weather-report/delete-all',
-  deleteAllWeatherReports,
-  (req: Request, res: Response) => res.status(200)
+  deleteAllWeatherReports
 );
 
 export default router;

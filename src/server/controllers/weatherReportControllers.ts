@@ -60,7 +60,7 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
 export const saveWeatherReport = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   console.log('saveWeatherReport middleware called');
   const { city, country, weatherTitle, weatherDesc, actualTemp, feelsLikeTemp, timestamp } = res.locals.weatherReport;
-  console.log('city', city);
+
   WeatherReport.create({
     city,
     country,
@@ -70,29 +70,30 @@ export const saveWeatherReport = async (req: Request, res: Response, next: NextF
     feelsLikeTemp,
     timestamp
   })
-    .then((document: WeatherReportType) => {
-      console.log(document);
-      res.send(document);
+    .then(() => {
+      return res.json(res.locals.weatherReport);
     })
     .catch((err: unknown) => console.log('ERR in saveWeatherReport: ', err));
 }
 
-//retrieves all weather reports from database for display
-export const getAllWeatherReports = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    console.log('getAllWeatherReports middleware called');
-    return next();
-  } catch (err) {
+//retrieves last 10 or fewer weather reports to display
+export const getLastTenWeatherReports = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  console.log('getLastTenWeatherReports middleware called');
 
-  }
+  WeatherReport.find({}, { _id: 0, __v: 0, weatherDesc: 0, feelsLikeTemp: 0 })
+    .sort({ '_id': -1 })
+    .limit(10)
+    .exec()
+    .then((lastTenReports: (WeatherReportType)[]) => res.json(lastTenReports))
+    .catch((err: unknown) => console.log('ERR in getLastTenWeatherReports: ', err))
 }
 
 //clears all weather reports from database
 export const deleteAllWeatherReports = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  try {
-    console.log('deleteAllWeatherReports middleware called');
-    return next();
-  } catch (err) {
+  console.log('deleteAllWeatherReports middleware called');
 
-  }
+  WeatherReport.collection
+    .drop()
+    .then(() => res.send('You successfully deleted all the weather reports.'))
+    .catch((err: unknown) => console.log('ERR in deleteAllWeatherReports: ', err))
 }

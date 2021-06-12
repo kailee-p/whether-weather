@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteAllWeatherReports = exports.getAllWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = void 0;
+exports.deleteAllWeatherReports = exports.getLastTenWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = void 0;
 const fetch = require('node-fetch');
 const weather_report_1 = __importDefault(require("../models/weather-report"));
 //calls weather API to retrieve weather report based on user input
@@ -60,7 +60,6 @@ exports.getWeatherReport = getWeatherReport;
 const saveWeatherReport = async (req, res, next) => {
     console.log('saveWeatherReport middleware called');
     const { city, country, weatherTitle, weatherDesc, actualTemp, feelsLikeTemp, timestamp } = res.locals.weatherReport;
-    console.log('city', city);
     weather_report_1.default.create({
         city,
         country,
@@ -70,30 +69,29 @@ const saveWeatherReport = async (req, res, next) => {
         feelsLikeTemp,
         timestamp
     })
-        .then((document) => {
-        console.log(document);
-        res.send(document);
+        .then(() => {
+        return res.json(res.locals.weatherReport);
     })
         .catch((err) => console.log('ERR in saveWeatherReport: ', err));
 };
 exports.saveWeatherReport = saveWeatherReport;
-//retrieves all weather reports from database for display
-const getAllWeatherReports = async (req, res, next) => {
-    try {
-        console.log('getAllWeatherReports middleware called');
-        return next();
-    }
-    catch (err) {
-    }
+//retrieves last 10 or fewer weather reports to display
+const getLastTenWeatherReports = async (req, res, next) => {
+    console.log('getLastTenWeatherReports middleware called');
+    weather_report_1.default.find({}, { _id: 0, __v: 0, weatherDesc: 0, feelsLikeTemp: 0 })
+        .sort({ '_id': -1 })
+        .limit(10)
+        .exec()
+        .then((lastTenReports) => res.json(lastTenReports))
+        .catch((err) => console.log('ERR in getLastTenWeatherReports: ', err));
 };
-exports.getAllWeatherReports = getAllWeatherReports;
+exports.getLastTenWeatherReports = getLastTenWeatherReports;
 //clears all weather reports from database
 const deleteAllWeatherReports = async (req, res, next) => {
-    try {
-        console.log('deleteAllWeatherReports middleware called');
-        return next();
-    }
-    catch (err) {
-    }
+    console.log('deleteAllWeatherReports middleware called');
+    weather_report_1.default.collection
+        .drop()
+        .then(() => res.send('You successfully deleted all the weather reports.'))
+        .catch((err) => console.log('ERR in deleteAllWeatherReports: ', err));
 };
 exports.deleteAllWeatherReports = deleteAllWeatherReports;
