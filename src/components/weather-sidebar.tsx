@@ -19,18 +19,38 @@ const WeatherSidebar = () => {
       .catch((err: unknown) => console.log('Error in GET request for weather logs: ', err))
   }, []);
 
+  const handleClick: React.MouseEventHandler<HTMLButtonElement> = (evt): void => {
+    evt.preventDefault();
+
+    fetch('/weather-report/delete-all', {
+      method: 'DELETE',
+    })
+      .then((res: any) => console.log('Response to DELETE request: ', res))
+      .catch((err: unknown) => console.log('Error in DELETE request ', err))
+  }
+
   const prevWeatherReports: JSX.Element[] = [];
 
-  console.log('last ten', lastTenWeatherReports);
-
-  if (lastTenWeatherReports !== null) {
+  if (lastTenWeatherReports === null) {
+    return (
+      <div>
+        Loading...
+      </div>
+    )
+  } else if (lastTenWeatherReports.length === 0) {
+    return (
+      <div>
+        There are no previous weather reports in my database! 
+      </div>
+    )
+  } else {
     for (let i = 0; i < 9; i++) {
       prevWeatherReports.push(<PreviousWeatherReport 
-        city={lastTenWeatherReports[i].city}
-        country={lastTenWeatherReports[i].country}
-        actualTemp={lastTenWeatherReports[i].actualTemp}
-        weatherTitle={lastTenWeatherReports[i].weatherTitle}
-        timestamp={lastTenWeatherReports[i].timestamp}
+        city={lastTenWeatherReports![i].city}
+        country={lastTenWeatherReports![i].country}
+        actualTemp={lastTenWeatherReports![i].actualTemp}
+        weatherTitle={lastTenWeatherReports![i].weatherTitle}
+        timestamp={lastTenWeatherReports![i].timestamp}
         key={i.toString()}
       />)
     }
@@ -40,17 +60,10 @@ const WeatherSidebar = () => {
         <section>
           {prevWeatherReports}
         </section>
-        <button>Delete logs</button>
+        <button onClick={handleClick}>Delete logs</button>
       </div>
     )
-  } else {
-   return (
-     <div id="loading">
-       Loading...
-     </div>
-   ) 
   }
-
 }
 
 export default WeatherSidebar;

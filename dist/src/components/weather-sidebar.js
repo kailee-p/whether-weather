@@ -40,18 +40,28 @@ const WeatherSidebar = () => {
         })
             .catch((err) => console.log('Error in GET request for weather logs: ', err));
     }, []);
+    const handleClick = (evt) => {
+        evt.preventDefault();
+        fetch('/weather-report/delete-all', {
+            method: 'DELETE',
+        })
+            .then((res) => console.log('Response to DELETE request: ', res))
+            .catch((err) => console.log('Error in DELETE request ', err));
+    };
     const prevWeatherReports = [];
-    console.log('last ten', lastTenWeatherReports);
-    if (lastTenWeatherReports !== null) {
+    if (lastTenWeatherReports === null) {
+        return (react_1.default.createElement("div", null, "Loading..."));
+    }
+    else if (lastTenWeatherReports.length === 0) {
+        return (react_1.default.createElement("div", null, "There are no previous weather reports in my database!"));
+    }
+    else {
         for (let i = 0; i < 9; i++) {
             prevWeatherReports.push(react_1.default.createElement(previous_weather_report_1.default, { city: lastTenWeatherReports[i].city, country: lastTenWeatherReports[i].country, actualTemp: lastTenWeatherReports[i].actualTemp, weatherTitle: lastTenWeatherReports[i].weatherTitle, timestamp: lastTenWeatherReports[i].timestamp, key: i.toString() }));
         }
         return (react_1.default.createElement("div", { id: "weather-sidebar" },
             react_1.default.createElement("section", null, prevWeatherReports),
-            react_1.default.createElement("button", null, "Delete logs")));
-    }
-    else {
-        return (react_1.default.createElement("div", { id: "loading" }, "Loading..."));
+            react_1.default.createElement("button", { onClick: handleClick }, "Delete logs")));
     }
 };
 exports.default = WeatherSidebar;
