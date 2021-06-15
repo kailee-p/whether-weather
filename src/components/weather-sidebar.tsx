@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PreviousWeatherReport from './previous-weather-report';
 
 const WeatherSidebar = () => {
-  const [lastTenWeatherReports, setLastTenWeatherReports] = useState(null);
+  const [lastTenWeatherReports, setLastTenWeatherReports] = useState<any[]>([]);
 
   useEffect(() => {
     fetch('/weather-report/previous-weather-reports', {
@@ -31,26 +31,20 @@ const WeatherSidebar = () => {
 
   const prevWeatherReports: JSX.Element[] = [];
 
-  if (lastTenWeatherReports === null) {
-    return (
-      <div>
-        Loading...
-      </div>
-    )
-  } else if (lastTenWeatherReports.length === 0) {
+  if (lastTenWeatherReports.length === 0) {
     return (
       <div>
         There are no previous weather reports in my database! 
       </div>
     )
   } else {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < lastTenWeatherReports.length; i++) {
       prevWeatherReports.push(<PreviousWeatherReport 
-        city={lastTenWeatherReports![i].city}
-        country={lastTenWeatherReports![i].country}
-        actualTemp={lastTenWeatherReports![i].actualTemp}
-        weatherTitle={lastTenWeatherReports![i].weatherTitle}
-        timestamp={lastTenWeatherReports![i].timestamp}
+        city={lastTenWeatherReports[i].city}
+        country={lastTenWeatherReports[i].country}
+        actualTemp={lastTenWeatherReports[i].actualTemp}
+        weatherTitle={lastTenWeatherReports[i].weatherTitle}
+        timestamp={lastTenWeatherReports[i].timestamp}
         key={i.toString()}
       />)
     }

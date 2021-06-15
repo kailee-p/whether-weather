@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const previous_weather_report_1 = __importDefault(require("./previous-weather-report"));
 const WeatherSidebar = () => {
-    const [lastTenWeatherReports, setLastTenWeatherReports] = react_1.useState(null);
+    const [lastTenWeatherReports, setLastTenWeatherReports] = react_1.useState([]);
     react_1.useEffect(() => {
         fetch('/weather-report/previous-weather-reports', {
             method: 'GET',
@@ -49,14 +49,11 @@ const WeatherSidebar = () => {
             .catch((err) => console.log('Error in DELETE request ', err));
     };
     const prevWeatherReports = [];
-    if (lastTenWeatherReports === null) {
-        return (react_1.default.createElement("div", null, "Loading..."));
-    }
-    else if (lastTenWeatherReports.length === 0) {
+    if (lastTenWeatherReports.length === 0) {
         return (react_1.default.createElement("div", null, "There are no previous weather reports in my database!"));
     }
     else {
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < lastTenWeatherReports.length; i++) {
             prevWeatherReports.push(react_1.default.createElement(previous_weather_report_1.default, { city: lastTenWeatherReports[i].city, country: lastTenWeatherReports[i].country, actualTemp: lastTenWeatherReports[i].actualTemp, weatherTitle: lastTenWeatherReports[i].weatherTitle, timestamp: lastTenWeatherReports[i].timestamp, key: i.toString() }));
         }
         return (react_1.default.createElement("div", { id: "weather-sidebar" },
