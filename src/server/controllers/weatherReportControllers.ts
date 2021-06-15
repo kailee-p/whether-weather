@@ -7,7 +7,7 @@ import { WeatherReport as WeatherReportType } from '../../types/weather-report';
 //gets location from user input using wit.ai NLP
 export const getLocationFromUserInput = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   console.log('processUserInput middleware called');
-  
+
   const question = req.body.message;
   const uri = 'https://api.wit.ai/message?v=20200513&q=' + question; 
   const auth = 'Bearer ' + process.env.SERVER_TOKEN;

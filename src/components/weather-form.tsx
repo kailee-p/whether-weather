@@ -5,6 +5,7 @@ function WeatherForm(): JSX.Element {
   
   const handleSubmit = (evt: React.FormEvent<EventTarget>): void => {
     evt.preventDefault();
+    console.log(message);
 
     fetch('/weather-report', {
       method: 'POST',
