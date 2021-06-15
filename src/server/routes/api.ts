@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getLocationFromUserInput, getWeatherReport, saveWeatherReport, getLastTenWeatherReports, deleteAllWeatherReports } from '../controllers/weatherReportControllers';
+import { getLocationFromUserInput, getWeatherReport, saveWeatherReport, getLastTenWeatherReports, deleteAllWeatherReports } from '../controllers/weather-report-controllers';
 
 const router: Router = Router();
 

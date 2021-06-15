@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { WeatherFormProps } from '../types/weather-form-props';
 
-function WeatherForm(): JSX.Element {
+const WeatherForm: any = (props: any) => {
   const [message, setMessage] = useState("");
   
   const handleSubmit = (evt: React.FormEvent<EventTarget>): void => {
@@ -18,7 +19,17 @@ function WeatherForm(): JSX.Element {
       }),
     })
       .then((res: any) => res.json())
-      .then((res: any) => console.log('response from Kailees server', res))
+      .then((weatherData: any) => {
+        props.setWeatherData((prevState: any) => ({
+          city: weatherData.city,
+          country: weatherData.country,
+          actualTemp: weatherData.actualTemp,
+          feelsLikeTemp: weatherData.feelsLikeTemp,
+          weatherTitle: weatherData.weatherTitle,
+          weatherDesc: weatherData.weatherDesc,
+          timestamp: weatherData.timestamp,
+        }), [props.setWeatherData])
+      })
       .catch((err: unknown) => console.log('Error in POST request for weather report ', err))
   }
 

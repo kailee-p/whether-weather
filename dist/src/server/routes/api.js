@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const weatherReportControllers_1 = require("../controllers/weatherReportControllers");
+const weather_report_controllers_1 = require("../controllers/weather-report-controllers");
 const router = express_1.Router();
-router.post('/weather-report', weatherReportControllers_1.getLocationFromUserInput, weatherReportControllers_1.getWeatherReport, weatherReportControllers_1.saveWeatherReport);
-router.get('/weather-report/weather-logs', weatherReportControllers_1.getLastTenWeatherReports);
-router.delete('/weather-report/delete-all', weatherReportControllers_1.deleteAllWeatherReports);
+router.post('/weather-report', weather_report_controllers_1.getLocationFromUserInput, weather_report_controllers_1.getWeatherReport, weather_report_controllers_1.saveWeatherReport);
+router.get('/weather-report/weather-logs', weather_report_controllers_1.getLastTenWeatherReports);
+router.delete('/weather-report/delete-all', weather_report_controllers_1.deleteAllWeatherReports);
 exports.default = router;

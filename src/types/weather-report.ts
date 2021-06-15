@@ -7,5 +7,5 @@ export interface WeatherReport extends Document {
   weatherDesc: string,
   actualTemp: number,
   feelsLikeTemp: number,
-  timestamp: number
+  timestamp: string,
 }

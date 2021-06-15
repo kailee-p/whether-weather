@@ -20,7 +20,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
-function WeatherForm() {
+const WeatherForm = (props) => {
     const [message, setMessage] = react_1.useState("");
     const handleSubmit = (evt) => {
         evt.preventDefault();
@@ -36,12 +36,22 @@ function WeatherForm() {
             }),
         })
             .then((res) => res.json())
-            .then((res) => console.log('response from Kailees server', res))
+            .then((weatherData) => {
+            props.setWeatherData((prevState) => ({
+                city: weatherData.city,
+                country: weatherData.country,
+                actualTemp: weatherData.actualTemp,
+                feelsLikeTemp: weatherData.feelsLikeTemp,
+                weatherTitle: weatherData.weatherTitle,
+                weatherDesc: weatherData.weatherDesc,
+                timestamp: weatherData.timestamp,
+            }), [props.setWeatherData]);
+        })
             .catch((err) => console.log('Error in POST request for weather report ', err));
     };
     return (react_1.default.createElement("form", { id: "weather-form", onSubmit: handleSubmit },
         react_1.default.createElement("label", null,
             react_1.default.createElement("input", { id: "weather-message-input", type: "text", value: message, onChange: e => setMessage(e.target.value) })),
         react_1.default.createElement("input", { id: "weather-message-submit-button", type: "submit", value: "submit" })));
-}
+};
 exports.default = WeatherForm;
