@@ -15,8 +15,6 @@ const App: React.FC = () => {
     timestamp: '',
   })
 
-  console.log('weatherData state', weatherData);
-
   return (
   <div>
     <WeatherIntro />

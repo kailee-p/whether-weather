@@ -36,7 +36,6 @@ const App = () => {
         weatherDesc: '',
         timestamp: '',
     });
-    console.log('weatherData state', weatherData);
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(weather_intro_1.default, null),
         react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData }),

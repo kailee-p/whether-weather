@@ -9,7 +9,7 @@ router.post('/weather-report',
   saveWeatherReport
 );
 
-router.get('/weather-report/weather-logs',
+router.get('/weather-report/previous-weather-reports',
   getLastTenWeatherReports
 );
 
