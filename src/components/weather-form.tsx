@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { WeatherFormProps } from '../types/weather-form-props';
 
-const WeatherForm: any = (props: any) => {
+const WeatherForm = (props: any): JSX.Element => {
   const [message, setMessage] = useState("");
   
   const handleSubmit = (evt: React.FormEvent<EventTarget>): void => {
     evt.preventDefault();
-    console.log(message);
 
     fetch('/weather-report', {
       method: 'POST',

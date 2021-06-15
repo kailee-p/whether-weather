@@ -40,6 +40,6 @@ const App = () => {
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(weather_intro_1.default, null),
         react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData }),
-        react_1.default.createElement(weather_report_container_1.default, null)));
+        react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })));
 };
 exports.default = App;

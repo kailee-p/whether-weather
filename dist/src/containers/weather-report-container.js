@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const weather_report_1 = __importDefault(require("../components/weather-report"));
 const weather_sidebar_1 = __importDefault(require("../components/weather-sidebar"));
-function WeatherReportContainer() {
+const WeatherReportContainer = (props) => {
     return (react_1.default.createElement("div", { id: "weather-report-container" },
-        react_1.default.createElement(weather_report_1.default, null),
+        react_1.default.createElement(weather_report_1.default, { weatherData: props.weatherData }),
         react_1.default.createElement(weather_sidebar_1.default, null)));
-}
+};
 exports.default = WeatherReportContainer;

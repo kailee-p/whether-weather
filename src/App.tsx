@@ -22,7 +22,8 @@ const App: React.FC = () => {
     <WeatherIntro />
     <WeatherForm 
       setWeatherData={setWeatherData} />
-    <WeatherReportContainer />
+    <WeatherReportContainer 
+      weatherData={weatherData} />
   </div>
   )
 }

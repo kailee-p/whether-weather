@@ -1,9 +1,14 @@
 import React from 'react';
 
-function WeatherReport(): JSX.Element {
+const WeatherReport = (props: any): JSX.Element => {
   return (
     <div id="weather-report">
-      <p>This is your weather report!</p>
+      <p>Weather as of {props.weatherData.timestamp}</p>
+      <p>City: {props.weatherData.city}</p>
+      <p>Country: {props.weatherData.country}</p>
+      <p>ActualTemp: {props.weatherData.actualTemp}</p>
+      <p>feelsLikeTemp: {props.weatherData.feelsLikeTemp}</p>
+      <p>{props.weatherData.weatherTitle}: {props.weatherData.weatherDesc}</p>
     </div>
   )
 }

@@ -24,7 +24,6 @@ const WeatherForm = (props) => {
     const [message, setMessage] = react_1.useState("");
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        console.log(message);
         fetch('/weather-report', {
             method: 'POST',
             headers: {
