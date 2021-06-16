@@ -26,6 +26,7 @@ const react_1 = __importStar(require("react"));
 const react_router_dom_1 = require("react-router-dom");
 const weather_form_1 = __importDefault(require("./components/weather-form"));
 const weather_report_container_1 = __importDefault(require("./containers/weather-report-container"));
+const video_background_1 = __importDefault(require("./components/video-background"));
 require("./css/App.css");
 const App = () => {
     const [weatherData, setWeatherData] = react_1.useState({
@@ -45,10 +46,7 @@ const App = () => {
             react_1.default.createElement(react_router_dom_1.Redirect, { to: { pathname: '/weather-report-display' } })));
     }
     return (react_1.default.createElement("div", null,
-        react_1.default.createElement("div", { id: "video-container" },
-            react_1.default.createElement("video", { autoPlay: true, loop: true, muted: true },
-                react_1.default.createElement("source", { src: "./videos/whetherweatherbackgroundvideo.mp4", type: "video/mp4" }),
-                "Your browser does not support the video tag.")),
+        react_1.default.createElement(video_background_1.default, null),
         react_1.default.createElement("div", { id: "weather-homepage-container" },
             react_1.default.createElement("div", { id: "weather-form-container" },
                 react_1.default.createElement("h1", null, "Whether Weather"),

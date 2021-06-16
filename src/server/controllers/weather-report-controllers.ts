@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const tuc = require('temp-units-conv');
+import countries from 'i18n-iso-countries';
 import { Response, Request, NextFunction } from 'express';
 import WeatherReport from '../models/weather-report';
 import { WeatherReport as WeatherReportType } from '../../types/weather-report';
@@ -72,6 +73,8 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
       res.json('I wasn\'t able to find any weather data for you. Please try again.');
       return next('ERROR: no weather data');
     }
+    //convert country code to country
+    const country = countries.getName(weatherData.country, 'en', { select: 'official' })
     //convert temperatures to Fahrenheit rounded to nearest integer
     const actualTempFahrenheit: number = Math.round(tuc.k2f(weatherData.weather.temperature.actual));
     const feelsLikeTempFahrenheit: number = Math.round(tuc.k2f(weatherData.weather.temperature.feelsLike));
@@ -81,7 +84,7 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
     //store data in res.locals to pass to next piece of middleware
     res.locals.weatherReport = {
       city: weatherData.name,
-      country: weatherData.country,
+      country: country,
       weatherTitle: weatherData.weather.summary.title,
       weatherDesc: weatherData.weather.summary.description,
       actualTemp: actualTempFahrenheit,

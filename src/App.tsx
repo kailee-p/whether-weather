@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import WeatherForm from './components/weather-form';
 import WeatherReportContainer from './containers/weather-report-container';
+import VideoBackground from './components/video-background';
 import './css/App.css';
 
 const App: React.FC = () => {
@@ -33,12 +34,7 @@ const App: React.FC = () => {
   }
   return (
   <div>
-    <div id="video-container">
-      <video autoPlay loop muted>
-        <source src="./videos/whetherweatherbackgroundvideo.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
+    <VideoBackground />
     <div id="weather-homepage-container">
       <div id="weather-form-container">
         <h1>Whether Weather</h1>

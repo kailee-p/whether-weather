@@ -3,6 +3,7 @@ import React from 'react';
 const WeatherReport = (props: any): JSX.Element => {
   return (
     <div id="weather-report">
+      <h3>Your Weather Report</h3>
       <p>Weather as of {props.weatherData.timestamp}</p>
       <p>City: {props.weatherData.city}</p>
       <p>Country: {props.weatherData.country}</p>

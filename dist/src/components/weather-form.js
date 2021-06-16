@@ -45,15 +45,6 @@ const WeatherForm = (props) => {
                 weatherDesc: weatherData.weatherDesc,
                 timestamp: weatherData.timestamp,
             }), [props.setWeatherData]);
-            const retrievedWeatherData = {
-                city: weatherData.city,
-                country: weatherData.country,
-                actualTemp: weatherData.actualTemp,
-                feelsLikeTemp: weatherData.feelsLikeTemp,
-                weatherTitle: weatherData.weatherTitle,
-                weatherDesc: weatherData.weatherDesc,
-                timestamp: weatherData.timestamp,
-            };
             //set fetched to true so weather report will render
             props.setWeatherDataFetched(true);
         })

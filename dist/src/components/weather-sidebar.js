@@ -61,7 +61,7 @@ const WeatherSidebar = () => {
         }
         return (react_1.default.createElement("div", { id: "weather-sidebar" },
             react_1.default.createElement("section", null,
-                react_1.default.createElement("h3", null, "Recent Weather Reports:"),
+                react_1.default.createElement("h3", null, "Recent Weather Reports"),
                 prevWeatherReports),
             react_1.default.createElement("button", { onClick: handleClick }, "Delete logs")));
     }

@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deleteAllWeatherReports = exports.getLastTenWeatherReports = exports.saveWeatherReport = exports.getWeatherReport = exports.getLocationFromUserInput = void 0;
 const fetch = require('node-fetch');
 const tuc = require('temp-units-conv');
+const i18n_iso_countries_1 = __importDefault(require("i18n-iso-countries"));
 const weather_report_1 = __importDefault(require("../models/weather-report"));
 //gets location from user input using wit.ai NLP
 const getLocationFromUserInput = async (req, res, next) => {
@@ -72,6 +73,8 @@ const getWeatherReport = async (req, res, next) => {
             res.json('I wasn\'t able to find any weather data for you. Please try again.');
             return next('ERROR: no weather data');
         }
+        //convert country code to country
+        const country = i18n_iso_countries_1.default.getName(weatherData.country, 'en', { select: 'official' });
         //convert temperatures to Fahrenheit rounded to nearest integer
         const actualTempFahrenheit = Math.round(tuc.k2f(weatherData.weather.temperature.actual));
         const feelsLikeTempFahrenheit = Math.round(tuc.k2f(weatherData.weather.temperature.feelsLike));
@@ -80,7 +83,7 @@ const getWeatherReport = async (req, res, next) => {
         //store data in res.locals to pass to next piece of middleware
         res.locals.weatherReport = {
             city: weatherData.name,
-            country: weatherData.country,
+            country: country,
             weatherTitle: weatherData.weather.summary.title,
             weatherDesc: weatherData.weather.summary.description,
             actualTemp: actualTempFahrenheit,

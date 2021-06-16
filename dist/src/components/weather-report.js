@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const WeatherReport = (props) => {
     return (react_1.default.createElement("div", { id: "weather-report" },
+        react_1.default.createElement("h3", null, "Your Weather Report"),
         react_1.default.createElement("p", null,
             "Weather as of ",
             props.weatherData.timestamp),
