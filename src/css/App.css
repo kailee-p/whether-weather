@@ -7,3 +7,10 @@ video {
   min-height: 100%;
   background-size: cover;
 }
+
+#weather-homepage-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

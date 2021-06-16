@@ -44,14 +44,15 @@ const App = () => {
                 react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })),
             react_1.default.createElement(react_router_dom_1.Redirect, { to: { pathname: '/weather-report-display' } })));
     }
-    return (react_1.default.createElement("div", { id: "weather-index-container" },
+    return (react_1.default.createElement("div", null,
         react_1.default.createElement("div", { id: "video-container" },
             react_1.default.createElement("video", { autoPlay: true, loop: true, muted: true },
                 react_1.default.createElement("source", { src: "./videos/whetherweatherbackgroundvideo.mp4", type: "video/mp4" }),
-                "Your browser does not support the video tag."),
-            react_1.default.createElement("h1", null, "Whether Weather"),
-            react_1.default.createElement("h2", null, "Ask me about the weather!")),
-        react_1.default.createElement("div", { id: "weather-form-container" },
-            react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched }))));
+                "Your browser does not support the video tag.")),
+        react_1.default.createElement("div", { id: "weather-homepage-container" },
+            react_1.default.createElement("div", { id: "weather-form-container" },
+                react_1.default.createElement("h1", null, "Whether Weather"),
+                react_1.default.createElement("h2", null, "Ask me about the weather!"),
+                react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched })))));
 };
 exports.default = App;
