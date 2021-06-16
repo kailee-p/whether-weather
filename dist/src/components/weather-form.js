@@ -45,6 +45,7 @@ const WeatherForm = (props) => {
                 weatherDesc: weatherData.weatherDesc,
                 timestamp: weatherData.timestamp,
             }), [props.setWeatherData]);
+            props.setWeatherDataFetched(true);
         })
             .catch((err) => console.log('Error in POST request for weather report ', err));
     };

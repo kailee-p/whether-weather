@@ -23,6 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
+const react_router_dom_1 = require("react-router-dom");
 const weather_intro_1 = __importDefault(require("./components/weather-intro"));
 const weather_form_1 = __importDefault(require("./components/weather-form"));
 const weather_report_container_1 = __importDefault(require("./containers/weather-report-container"));
@@ -36,9 +37,17 @@ const App = () => {
         weatherDesc: '',
         timestamp: '',
     });
+    const [weatherDataFetched, setWeatherDataFetched] = react_1.useState(false);
+    console.log('weatherdata in app', weatherData);
+    console.log('fetched', weatherDataFetched);
+    if (weatherDataFetched === true) {
+        return (react_1.default.createElement("div", null,
+            react_1.default.createElement(react_router_dom_1.Route, { path: '/weather-report-display' },
+                react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })),
+            react_1.default.createElement(react_router_dom_1.Redirect, { to: { pathname: '/weather-report-display' } })));
+    }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(weather_intro_1.default, null),
-        react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData }),
-        react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })));
+        react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched })));
 };
 exports.default = App;

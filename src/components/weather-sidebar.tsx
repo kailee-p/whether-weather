@@ -52,6 +52,7 @@ const WeatherSidebar = () => {
     return (
       <div id="weather-sidebar">
         <section>
+          <h3>Recent Weather Reports:</h3>
           {prevWeatherReports}
         </section>
         <button onClick={handleClick}>Delete logs</button>

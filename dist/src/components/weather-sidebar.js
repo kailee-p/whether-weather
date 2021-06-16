@@ -57,7 +57,9 @@ const WeatherSidebar = () => {
             prevWeatherReports.push(react_1.default.createElement(previous_weather_report_1.default, { city: lastTenWeatherReports[i].city, country: lastTenWeatherReports[i].country, actualTemp: lastTenWeatherReports[i].actualTemp, weatherTitle: lastTenWeatherReports[i].weatherTitle, timestamp: lastTenWeatherReports[i].timestamp, key: i.toString() }));
         }
         return (react_1.default.createElement("div", { id: "weather-sidebar" },
-            react_1.default.createElement("section", null, prevWeatherReports),
+            react_1.default.createElement("section", null,
+                react_1.default.createElement("h3", null, "Recent Weather Reports:"),
+                prevWeatherReports),
             react_1.default.createElement("button", { onClick: handleClick }, "Delete logs")));
     }
 };

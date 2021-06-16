@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
 const WeatherReport = (props) => {
+    console.log('weatherData in weather report', props.weatherData);
     return (react_1.default.createElement("div", { id: "weather-report" },
         react_1.default.createElement("p", null,
             "Weather as of ",
@@ -17,10 +18,12 @@ const WeatherReport = (props) => {
             props.weatherData.country),
         react_1.default.createElement("p", null,
             "ActualTemp: ",
-            props.weatherData.actualTemp),
+            props.weatherData.actualTemp,
+            "\u00B0 F"),
         react_1.default.createElement("p", null,
             "feelsLikeTemp: ",
-            props.weatherData.feelsLikeTemp),
+            props.weatherData.feelsLikeTemp,
+            "\u00B0 F"),
         react_1.default.createElement("p", null,
             props.weatherData.weatherTitle,
             ": ",
