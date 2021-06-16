@@ -93,6 +93,19 @@ module.exports = env => {
         {
           test: /\.tsx?$/, use: "ts-loader", exclude: /node_modules/ 
         },
+        //videos
+        {
+          test: /\.mp4$/,
+          use: [
+              {
+                  loader: "file-loader",
+                  options: {
+                      name: "[name].[ext]",
+                      outputPath: "video"
+                  }
+              }
+          ]
+        }
       ]
     }
   }

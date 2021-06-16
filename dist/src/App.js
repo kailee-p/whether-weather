@@ -24,9 +24,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const react_router_dom_1 = require("react-router-dom");
-const weather_intro_1 = __importDefault(require("./components/weather-intro"));
 const weather_form_1 = __importDefault(require("./components/weather-form"));
 const weather_report_container_1 = __importDefault(require("./containers/weather-report-container"));
+require("./css/App.css");
 const App = () => {
     const [weatherData, setWeatherData] = react_1.useState({
         city: '',
@@ -44,8 +44,14 @@ const App = () => {
                 react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })),
             react_1.default.createElement(react_router_dom_1.Redirect, { to: { pathname: '/weather-report-display' } })));
     }
-    return (react_1.default.createElement("div", null,
-        react_1.default.createElement(weather_intro_1.default, null),
-        react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched })));
+    return (react_1.default.createElement("div", { id: "weather-index-container" },
+        react_1.default.createElement("div", { id: "video-container" },
+            react_1.default.createElement("video", { autoPlay: true, loop: true, muted: true },
+                react_1.default.createElement("source", { src: "./videos/whetherweatherbackgroundvideo.mp4", type: "video/mp4" }),
+                "Your browser does not support the video tag."),
+            react_1.default.createElement("h1", null, "Whether Weather"),
+            react_1.default.createElement("h2", null, "Ask me about the weather!")),
+        react_1.default.createElement("div", { id: "weather-form-container" },
+            react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched }))));
 };
 exports.default = App;

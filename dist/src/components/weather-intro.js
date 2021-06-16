@@ -21,13 +21,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 function WeatherIntro() {
-    const [introText, setIntroText] = react_1.useState([
+    const introTextArr = [
         'Hi, I\'m WhetherWeather!',
         'My creator programmed me to get the weather for you!',
-        'But unfortunately, she did not program me to love. :(',
+        'But unfortunately, she did not program me to understand other inquiries. :(',
         'Please ask me about the weather! :)'
-    ]);
+    ];
+    const [introText, setIntroText] = react_1.useState(0);
+    setInterval(() => setIntroText);
     return (react_1.default.createElement("div", { id: "weather-intro" },
-        react_1.default.createElement("h1", null)));
+        react_1.default.createElement("h1", null, introTextArr[introText])));
 }
 exports.default = WeatherIntro;
