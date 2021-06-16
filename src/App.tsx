@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import {
-  BrowserRouter as Router,
-  Switch,
   Route,
   Redirect
 } from "react-router-dom";
@@ -22,8 +20,6 @@ const App: React.FC = () => {
   })
 
   const [weatherDataFetched, setWeatherDataFetched] = useState(false);
-  console.log('weatherdata in app', weatherData);
-  console.log('fetched', weatherDataFetched);
 
   if (weatherDataFetched === true) {
     return (

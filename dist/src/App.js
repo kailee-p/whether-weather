@@ -38,8 +38,6 @@ const App = () => {
         timestamp: '',
     });
     const [weatherDataFetched, setWeatherDataFetched] = react_1.useState(false);
-    console.log('weatherdata in app', weatherData);
-    console.log('fetched', weatherDataFetched);
     if (weatherDataFetched === true) {
         return (react_1.default.createElement("div", null,
             react_1.default.createElement(react_router_dom_1.Route, { path: '/weather-report-display' },

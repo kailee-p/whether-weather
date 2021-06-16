@@ -25,7 +25,10 @@ const WeatherSidebar = () => {
     fetch('/weather-report/delete-all', {
       method: 'DELETE',
     })
-      .then((res: any) => console.log('Response to DELETE request: ', res))
+      .then((res: any) => {
+        console.log('Response to DELETE request: ', res);
+        setLastTenWeatherReports([]);
+      })
       .catch((err: unknown) => console.log('Error in DELETE request ', err))
   }
 

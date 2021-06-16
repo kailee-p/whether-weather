@@ -1,7 +1,6 @@
 import React from 'react';
 
 const WeatherReport = (props: any): JSX.Element => {
-  console.log('weatherData in weather report', props.weatherData);
   return (
     <div id="weather-report">
       <p>Weather as of {props.weatherData.timestamp}</p>

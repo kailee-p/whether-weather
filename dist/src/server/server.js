@@ -18,7 +18,7 @@ app.use(cors_1.default());
 app.use(api_1.default);
 //requests to an unknown route catch-all
 app.get('*', (req, res) => {
-    return res.status(404).send('Page not found');
+    return res.status(404).send('ERROR 404: Page not found');
 });
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@whether-weather-cluster.guyni.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };

@@ -19,7 +19,7 @@ app.use(weatherRoutes);
 //requests to an unknown route catch-all
 app.get('*',
   (req: Request, res: Response) => {
-    return res.status(404).send('Page not found');
+    return res.status(404).send('ERROR 404: Page not found');
   }
 );
 
