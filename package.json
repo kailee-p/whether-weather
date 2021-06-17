@@ -7,10 +7,7 @@
     "dev": "tsc --watch & nodemon ./src/server/server.ts & webpack serve --open",
     "test": "jest",
     "clean": "rimraf dist",
-    "build": "tsc",
-    "watch:build": "tsc --watch",
-    "watch:server": "nodemon './dist/index.js' --watch './dist'",
-    "start": "npm-run-all clean build --parallel watch:build watch:server --print-label"
+    "build": "tsc && cp -r ./src/css/ ./dist/src/"
   },
   "repository": {
     "type": "git",
