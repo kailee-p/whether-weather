@@ -23,7 +23,7 @@ const WeatherReport = (props) => {
             react_1.default.createElement("strong", null, "Temperature:"),
             " ",
             props.weatherData.actualTemp,
-            "\u00B0 F (Feels Like ",
+            "\u00B0 F (feels like ",
             props.weatherData.feelsLikeTemp,
             "\u00B0 F)"),
         react_1.default.createElement("p", null,

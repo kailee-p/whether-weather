@@ -38,7 +38,9 @@ const App: React.FC = () => {
   
   //check for error message
   if (errorMessage !== '') {
-    window.alert(errorMessage);    
+    window.alert(errorMessage);  
+    //reset error message
+    setErrorMessage((prevState: string) => '');  
   }
 
   return (
@@ -46,8 +48,8 @@ const App: React.FC = () => {
     <VideoBackground />
     <div id="weather-homepage-container">
       <div id="weather-form-container">
-        <h1>Hi, I'm Whether Weather!</h1>
-        <h2>Ask me about the weather!</h2>
+        <h1>I'm Whether Weather!</h1>
+        <h2>Ask me about the weather in a city of your choice!</h2>
         <WeatherForm 
           setWeatherData={setWeatherData}
           setWeatherDataFetched={setWeatherDataFetched}

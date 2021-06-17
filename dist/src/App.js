@@ -53,13 +53,15 @@ const App = () => {
     //check for error message
     if (errorMessage !== '') {
         window.alert(errorMessage);
+        //reset error message
+        setErrorMessage((prevState) => '');
     }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(video_background_1.default, null),
         react_1.default.createElement("div", { id: "weather-homepage-container" },
             react_1.default.createElement("div", { id: "weather-form-container" },
-                react_1.default.createElement("h1", null, "Hi, I'm Whether Weather!"),
-                react_1.default.createElement("h2", null, "Ask me about the weather!"),
+                react_1.default.createElement("h1", null, "I'm Whether Weather!"),
+                react_1.default.createElement("h2", null, "Ask me about the weather in a city of your choice!"),
                 react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched, setErrorMessage: setErrorMessage })))));
 };
 exports.default = App;

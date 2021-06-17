@@ -30,7 +30,7 @@ const WeatherForm = (props: any): JSX.Element => {
             weatherDesc: weatherData.weatherDesc,
             timestamp: weatherData.timestamp,
           }), [props.setWeatherData])
-  
+
           //set fetched to true so weather report will render
           props.setWeatherDataFetched(true);
         } else { //returns an error
