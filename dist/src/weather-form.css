@@ -1,0 +1,32 @@
+#weather-message-input {
+  outline: 0;
+  min-width: 500px;
+  border-width: 0 0 2px;
+  border-color: black;
+  background: transparent;
+  font-size: 24px;
+}
+
+#weather-message-input:focus {
+  outline: 1px;
+  border-color: white;
+}
+
+#weather-message-submit-button {
+  margin: 10px 0 0 20px;
+  padding: 10px;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  font-size: 24px;
+}
+
+#weather-message-submit-button:hover {
+  background-color: transparent;
+  color: white
+}
+
+#weather-message-submit-button:active {
+  position: relative;
+  top: 2px;
+}

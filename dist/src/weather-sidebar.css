@@ -1,0 +1,32 @@
+.weather-sidebar {
+  margin: 10% 10% 10% 10px;
+  padding: 0px 20px;
+  border: solid 1px black;
+  border-radius: 5px;
+}
+
+#prev-weather-report-container {
+  padding: 5px;
+  max-height: 50vh;
+  overflow-y: scroll;
+  border: solid 1px black;
+}
+
+#delete-weather-reports-button {
+  margin: 10px;
+  padding: 10px;
+  background-color: transparent;
+  border: 2px solid;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+#delete-weather-reports-button:hover {
+  background-color: transparent;
+  color: white
+}
+
+#delete-weather-reports-button:active {
+  position: relative;
+  top: 2px;
+}
