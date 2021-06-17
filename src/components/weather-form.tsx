@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../css/weather-form.css';
 
 const WeatherForm = (props: any): JSX.Element => {
   const [message, setMessage] = useState("");

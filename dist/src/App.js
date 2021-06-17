@@ -43,7 +43,6 @@ const App = () => {
     const [weatherDataFetched, setWeatherDataFetched] = react_1.useState(false);
     //error handling
     const [errorMessage, setErrorMessage] = react_1.useState('');
-    console.log('errorMessage', errorMessage);
     //render weather report if weather data was fetched successfully
     if (weatherDataFetched === true) {
         return (react_1.default.createElement("div", null,
@@ -51,6 +50,7 @@ const App = () => {
                 react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })),
             react_1.default.createElement(react_router_dom_1.Redirect, { to: { pathname: '/weather-report-display' } })));
     }
+    //check for error message
     if (errorMessage !== '') {
         window.alert(errorMessage);
     }

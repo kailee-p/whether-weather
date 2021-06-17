@@ -20,6 +20,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
+require("../css/weather-form.css");
 const WeatherForm = (props) => {
     const [message, setMessage] = react_1.useState("");
     const handleSubmit = (evt) => {

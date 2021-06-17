@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import {
-  Route,
-  Redirect
-} from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import WeatherForm from './components/weather-form';
 import WeatherReportContainer from './containers/weather-report-container';
 import VideoBackground from './components/video-background';
@@ -26,7 +23,7 @@ const App: React.FC = () => {
 
   //error handling
   const [errorMessage, setErrorMessage] = useState('');
-  console.log('errorMessage', errorMessage)
+  
   //render weather report if weather data was fetched successfully
   if (weatherDataFetched === true) {
     return (
@@ -38,7 +35,8 @@ const App: React.FC = () => {
     <Redirect to={{ pathname: '/weather-report-display' }}  />
     </div>)
   } 
-
+  
+  //check for error message
   if (errorMessage !== '') {
     window.alert(errorMessage);    
   }
