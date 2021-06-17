@@ -1,0 +1,15 @@
+#video-credits {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 10px;
+}
+
+#video-credits a {
+  color: blue;
+  text-decoration: none;
+}
+
+#video-credits a:visited {
+  color: blue;
+}
