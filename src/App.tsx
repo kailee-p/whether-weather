@@ -38,6 +38,7 @@ const App: React.FC = () => {
   
   //check for error message
   if (errorMessage !== '') {
+    console.log('window alert called');
     window.alert(errorMessage);  
     //reset error message
     setErrorMessage((prevState: string) => '');  

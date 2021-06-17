@@ -26,7 +26,6 @@ const WeatherForm = (props) => {
     const handleSubmit = (evt) => {
         evt.preventDefault();
         if (message === '') { //error for empty message
-            console.log('empty error message');
             props.setErrorMessage((prevState) => 'ERROR: Please enter a question.');
         }
         else { //message contains text, attempt to obtain location

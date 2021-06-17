@@ -8,7 +8,6 @@ const WeatherForm = (props: any): JSX.Element => {
     evt.preventDefault();
 
     if (message === '') { //error for empty message
-      console.log('empty error message');
       props.setErrorMessage((prevState: string) => 'ERROR: Please enter a question.');
     } else { //message contains text, attempt to obtain location
       fetch('/weather-report', {
