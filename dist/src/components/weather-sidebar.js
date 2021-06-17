@@ -24,6 +24,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const previous_weather_report_1 = __importDefault(require("./previous-weather-report"));
+require("../css/weather-sidebar.css");
 const WeatherSidebar = () => {
     const [lastTenWeatherReports, setLastTenWeatherReports] = react_1.useState([]);
     react_1.useEffect(() => {
@@ -53,7 +54,7 @@ const WeatherSidebar = () => {
     };
     const prevWeatherReports = [];
     if (lastTenWeatherReports.length === 0) {
-        return (react_1.default.createElement("div", null,
+        return (react_1.default.createElement("div", { className: "weather-sidebar", id: "no-weather-reports" },
             react_1.default.createElement("h3", null, "Recent Weather Reports"),
             "There are no previous weather reports in my database!"));
     }
@@ -61,11 +62,10 @@ const WeatherSidebar = () => {
         for (let i = 0; i < lastTenWeatherReports.length; i++) {
             prevWeatherReports.push(react_1.default.createElement(previous_weather_report_1.default, { city: lastTenWeatherReports[i].city, country: lastTenWeatherReports[i].country, actualTemp: lastTenWeatherReports[i].actualTemp, weatherTitle: lastTenWeatherReports[i].weatherTitle, timestamp: lastTenWeatherReports[i].timestamp, key: i.toString() }));
         }
-        return (react_1.default.createElement("div", { id: "weather-sidebar" },
-            react_1.default.createElement("section", null,
-                react_1.default.createElement("h3", null, "Recent Weather Reports"),
-                prevWeatherReports),
-            react_1.default.createElement("button", { onClick: handleClick }, "Delete logs")));
+        return (react_1.default.createElement("div", { className: "weather-sidebar" },
+            react_1.default.createElement("h3", null, "Recent Weather Reports"),
+            react_1.default.createElement("div", { id: "prev-weather-report-container" }, prevWeatherReports),
+            react_1.default.createElement("button", { id: "delete-weather-reports-button", onClick: handleClick }, "Delete Weather Reports")));
     }
 };
 exports.default = WeatherSidebar;

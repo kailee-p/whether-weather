@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PreviousWeatherReport from './previous-weather-report';
+import '../css/weather-sidebar.css';
 
 const WeatherSidebar = () => {
   const [lastTenWeatherReports, setLastTenWeatherReports] = useState<any[]>([]);
@@ -36,7 +37,7 @@ const WeatherSidebar = () => {
 
   if (lastTenWeatherReports.length === 0) {
     return (
-      <div>
+      <div className="weather-sidebar" id="no-weather-reports">
         <h3>Recent Weather Reports</h3>
         There are no previous weather reports in my database! 
       </div>
@@ -54,12 +55,12 @@ const WeatherSidebar = () => {
     }
 
     return (
-      <div id="weather-sidebar">
-        <section>
-          <h3>Recent Weather Reports</h3>
+      <div className="weather-sidebar">
+        <h3>Recent Weather Reports</h3>
+        <div id="prev-weather-report-container">
           {prevWeatherReports}
-        </section>
-        <button onClick={handleClick}>Delete logs</button>
+        </div>
+        <button id="delete-weather-reports-button" onClick={handleClick}>Delete Weather Reports</button>
       </div>
     )
   }

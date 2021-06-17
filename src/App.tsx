@@ -46,7 +46,7 @@ const App: React.FC = () => {
     <VideoBackground />
     <div id="weather-homepage-container">
       <div id="weather-form-container">
-        <h1>Whether Weather</h1>
+        <h1>Hi, I'm Whether Weather!</h1>
         <h2>Ask me about the weather!</h2>
         <WeatherForm 
           setWeatherData={setWeatherData}

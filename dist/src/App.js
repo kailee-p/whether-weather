@@ -58,7 +58,7 @@ const App = () => {
         react_1.default.createElement(video_background_1.default, null),
         react_1.default.createElement("div", { id: "weather-homepage-container" },
             react_1.default.createElement("div", { id: "weather-form-container" },
-                react_1.default.createElement("h1", null, "Whether Weather"),
+                react_1.default.createElement("h1", null, "Hi, I'm Whether Weather!"),
                 react_1.default.createElement("h2", null, "Ask me about the weather!"),
                 react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched, setErrorMessage: setErrorMessage })))));
 };

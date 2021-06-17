@@ -11,7 +11,8 @@ require("../css/weather-report-container.css");
 const WeatherReportContainer = (props) => {
     return (react_1.default.createElement("div", { id: "weather-report-container" },
         react_1.default.createElement(video_background_1.default, null),
-        react_1.default.createElement(weather_report_1.default, { weatherData: props.weatherData }),
-        react_1.default.createElement(weather_sidebar_1.default, null)));
+        react_1.default.createElement("div", { id: "weather-report-and-sidebar" },
+            react_1.default.createElement(weather_report_1.default, { weatherData: props.weatherData }),
+            react_1.default.createElement(weather_sidebar_1.default, null))));
 };
 exports.default = WeatherReportContainer;

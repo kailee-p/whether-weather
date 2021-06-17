@@ -1,0 +1,9 @@
+#weather-report {
+  margin: 10% 10px 10% 10%;
+  padding: 0px 20px;
+  min-height: 25vh;
+  max-height: 30vh;
+  overflow-y: auto;
+  border: solid 1px black;
+  border-radius: 5px;
+}

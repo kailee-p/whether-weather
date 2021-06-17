@@ -4,29 +4,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
+require("../css/weather-report.css");
 const WeatherReport = (props) => {
     return (react_1.default.createElement("div", { id: "weather-report" },
-        react_1.default.createElement("h3", null, "Your Weather Report"),
+        react_1.default.createElement("h2", null, "Your Weather Report"),
         react_1.default.createElement("p", null,
             "Weather as of ",
-            props.weatherData.timestamp),
+            react_1.default.createElement("strong", null, props.weatherData.timestamp)),
         react_1.default.createElement("p", null,
-            "City: ",
+            react_1.default.createElement("strong", null, "City:"),
+            " ",
             props.weatherData.city),
         react_1.default.createElement("p", null,
-            "Country: ",
+            react_1.default.createElement("strong", null, "Country:"),
+            " ",
             props.weatherData.country),
         react_1.default.createElement("p", null,
-            "ActualTemp: ",
+            react_1.default.createElement("strong", null, "Temperature:"),
+            " ",
             props.weatherData.actualTemp,
-            "\u00B0 F"),
-        react_1.default.createElement("p", null,
-            "feelsLikeTemp: ",
+            "\u00B0 F (Feels Like ",
             props.weatherData.feelsLikeTemp,
-            "\u00B0 F"),
+            "\u00B0 F)"),
         react_1.default.createElement("p", null,
-            props.weatherData.weatherTitle,
-            ": ",
+            react_1.default.createElement("strong", null,
+                props.weatherData.weatherTitle,
+                ":"),
+            " ",
             props.weatherData.weatherDesc)));
 };
 exports.default = WeatherReport;

@@ -8,9 +8,11 @@ const WeatherReportContainer = (props: any): JSX.Element => {
   return (
   <div id="weather-report-container">
     <VideoBackground />
+    <div id="weather-report-and-sidebar">
     <WeatherReport 
-      weatherData={props.weatherData} /> 
-    <WeatherSidebar />
+        weatherData={props.weatherData} /> 
+      <WeatherSidebar />
+    </div>
   </div>
   )
 }
