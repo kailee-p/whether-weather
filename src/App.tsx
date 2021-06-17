@@ -23,7 +23,7 @@ const App: React.FC = () => {
 
   //error handling
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   //render weather report if weather data was fetched successfully
   if (weatherDataFetched === true) {
     return (
@@ -35,14 +35,6 @@ const App: React.FC = () => {
     <Redirect to={{ pathname: '/weather-report-display' }}  />
     </div>)
   } 
-  
-  //check for error message
-  if (errorMessage !== '') {
-    console.log('window alert called');
-    window.alert(errorMessage);  
-    //reset error message
-    setErrorMessage((prevState: string) => '');  
-  }
 
   return (
   <div>
@@ -55,6 +47,7 @@ const App: React.FC = () => {
           setWeatherData={setWeatherData}
           setWeatherDataFetched={setWeatherDataFetched}
           setErrorMessage={setErrorMessage} />
+        { errorMessage !== '' ? <dialog open id="error-message"><p>{errorMessage}</p><br /><button id="close" onClick={() => setErrorMessage('')}>Close</button></dialog> : <div></div> }
       </div>
     </div>
   </div>

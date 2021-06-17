@@ -62,7 +62,7 @@ const WeatherForm = (props: any): JSX.Element => {
           onChange={e => setMessage(e.target.value)}
         />
       </label>
-      <input id="weather-message-submit-button" type="submit" value="submit" />
+      <input id="weather-message-submit-button" type="submit" value="Submit" />
     </form>
   );
 }

@@ -7,7 +7,6 @@ import './index.css';
 if (module.hot) module.hot.accept();
 
 ReactDOM.render(
-
   <React.StrictMode>
     <BrowserRouter>
       <App />

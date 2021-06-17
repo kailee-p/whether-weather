@@ -5,9 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc --watch & nodemon ./src/server/server.ts & webpack serve --open",
-    "test": "jest",
-    "clean": "rimraf dist",
-    "build": "tsc && cp -r ./src/css/ ./dist/src/"
+    "test": "jest"
   },
   "repository": {
     "type": "git",

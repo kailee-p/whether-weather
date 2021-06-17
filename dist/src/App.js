@@ -50,19 +50,16 @@ const App = () => {
                 react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })),
             react_1.default.createElement(react_router_dom_1.Redirect, { to: { pathname: '/weather-report-display' } })));
     }
-    //check for error message
-    if (errorMessage !== '') {
-        console.log('window alert called');
-        window.alert(errorMessage);
-        //reset error message
-        setErrorMessage((prevState) => '');
-    }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(video_background_1.default, null),
         react_1.default.createElement("div", { id: "weather-homepage-container" },
             react_1.default.createElement("div", { id: "weather-form-container" },
                 react_1.default.createElement("h1", null, "I'm Whether Weather!"),
                 react_1.default.createElement("h2", null, "Ask me about the weather in a city of your choice!"),
-                react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched, setErrorMessage: setErrorMessage })))));
+                react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched, setErrorMessage: setErrorMessage }),
+                errorMessage !== '' ? react_1.default.createElement("dialog", { open: true, id: "error-message" },
+                    react_1.default.createElement("p", null, errorMessage),
+                    react_1.default.createElement("br", null),
+                    react_1.default.createElement("button", { id: "close", onClick: () => setErrorMessage('') }, "Close")) : react_1.default.createElement("div", null)))));
 };
 exports.default = App;
