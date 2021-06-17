@@ -25,48 +25,54 @@ const WeatherForm = (props) => {
     const [message, setMessage] = react_1.useState("");
     const handleSubmit = (evt) => {
         evt.preventDefault();
-        fetch('/weather-report', {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                message: message,
-            }),
-        })
-            .then((res) => res.json())
-            .then((weatherData) => {
-            //check if weatherData has data or is an error 
-            if (weatherData.city !== undefined) {
-                props.setWeatherData((prevState) => ({
-                    city: weatherData.city,
-                    country: weatherData.country,
-                    actualTemp: weatherData.actualTemp,
-                    feelsLikeTemp: weatherData.feelsLikeTemp,
-                    weatherTitle: weatherData.weatherTitle,
-                    weatherDesc: weatherData.weatherDesc,
-                    timestamp: weatherData.timestamp,
-                }), [props.setWeatherData]);
-                //set fetched to true so weather report will render
-                props.setWeatherDataFetched(true);
-            }
-            else { //returns an error
-                if (weatherData === 'ERROR: NO CITIES') {
-                    props.setErrorMessage((prevState) => 'ERROR: Not able to find any cities in your query. Please try again.');
+        if (message === '') { //error for empty message
+            console.log('empty error message');
+            props.setErrorMessage((prevState) => 'ERROR: Please enter a question.');
+        }
+        else { //message contains text, attempt to obtain location
+            fetch('/weather-report', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: message,
+                }),
+            })
+                .then((res) => res.json())
+                .then((weatherData) => {
+                //check if weatherData has data or is an error 
+                if (weatherData.city !== undefined) {
+                    props.setWeatherData((prevState) => ({
+                        city: weatherData.city,
+                        country: weatherData.country,
+                        actualTemp: weatherData.actualTemp,
+                        feelsLikeTemp: weatherData.feelsLikeTemp,
+                        weatherTitle: weatherData.weatherTitle,
+                        weatherDesc: weatherData.weatherDesc,
+                        timestamp: weatherData.timestamp,
+                    }), [props.setWeatherData]);
+                    //set fetched to true so weather report will render
+                    props.setWeatherDataFetched(true);
                 }
-                else if (weatherData === 'ERROR: TOO MANY CITIES') {
-                    props.setErrorMessage((prevState) => 'ERROR: There are too many cities in your question. Please try again.');
+                else { //returns an error
+                    if (weatherData === 'ERROR: NO CITIES') {
+                        props.setErrorMessage((prevState) => 'ERROR: Not able to find any cities in your query. Please try again.');
+                    }
+                    else if (weatherData === 'ERROR: TOO MANY CITIES') {
+                        props.setErrorMessage((prevState) => 'ERROR: There are too many cities in your question. Please try again.');
+                    }
+                    else if (weatherData === 'ERROR: NO WEATHER DATA') {
+                        props.setErrorMessage((prevState) => 'ERROR: Was not able to retrieve weather data. Please try again.');
+                    }
+                    else {
+                        props.setErrorMessage((prevState) => 'ERROR: An unknown error occurred. Please try again.');
+                    }
                 }
-                else if (weatherData === 'ERROR: NO WEATHER DATA') {
-                    props.setErrorMessage((prevState) => 'ERROR: Was not able to retrieve weather data. Please try again.');
-                }
-                else {
-                    props.setErrorMessage((prevState) => 'ERROR: An unknown error occurred. Please try again.');
-                }
-            }
-        })
-            .catch((err) => console.log('Error in POST request for weather report ', err));
+            })
+                .catch((err) => console.log('Error in POST request for weather report ', err));
+        }
     };
     return (react_1.default.createElement("form", { id: "weather-form", onSubmit: handleSubmit },
         react_1.default.createElement("label", null,
