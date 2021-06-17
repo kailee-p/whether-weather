@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import weatherRoutes from './routes/api';
 import dotenv from 'dotenv';
+const path = require('path');
 
 dotenv.config();
 
@@ -16,10 +17,10 @@ app.use(express.urlencoded());
 app.use(cors());
 app.use(weatherRoutes);
 
-//requests to an unknown route catch-all
+//requests catch-all to redirect to homepage
 app.get('*',
   (req: Request, res: Response) => {
-    return res.status(404).send('ERROR 404: Page not found');
+    res.sendFile(path.join(__dirname, '../../dist/index.html')); 
   }
 );
 

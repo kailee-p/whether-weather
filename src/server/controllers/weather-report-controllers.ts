@@ -17,12 +17,10 @@ export const getLocationFromUserInput = async (req: Request, res: Response, next
   .then((res: any) => res.json())
   .then((witData: any) => {
     const locationArr = witData.entities['wit$location:location'];
-    if (!locationArr) {
-      res.json('I wasn\'t able to detect any cities in your question. Please ask me something else.')
-      return next('ERROR: no cities');
-    } else if (locationArr.length > 1) {
-      res.json('Your question has too many cities for me to look up! Please ask about one city only.');
-      return next('ERROR: too many cities');
+    if (!locationArr) { //error for no location found
+      return res.json('ERROR: NO CITIES');
+    } else if (locationArr.length > 1) { //error for too many locations found
+      return res.json('ERROR: TOO MANY CITIES');
     } 
     res.locals.location = locationArr[0].body;
     return next();
@@ -68,10 +66,8 @@ export const getWeatherReport = async (req: Request, res: Response, next: NextFu
   .then((res: any) => res.json())
   .then((res: any) => res.data.getCityByName)
   .then((weatherData: any) => {
-    //error for no weather data retrieval
-    if (weatherData === null) {
-      res.json('I wasn\'t able to find any weather data for you. Please try again.');
-      return next('ERROR: no weather data');
+    if (weatherData === null) { //error for no weather data retrieval
+      return res.json('ERROR: NO WEATHER DATA');
     }
     //convert country code to country
     const country = countries.getName(weatherData.country, 'en', { select: 'official' })

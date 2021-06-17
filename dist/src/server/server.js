@@ -8,6 +8,7 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const api_1 = __importDefault(require("./routes/api"));
 const dotenv_1 = __importDefault(require("dotenv"));
+const path = require('path');
 dotenv_1.default.config();
 const app = express_1.default();
 const PORT = 3000;
@@ -16,9 +17,9 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded());
 app.use(cors_1.default());
 app.use(api_1.default);
-//requests to an unknown route catch-all
+//requests catch-all to redirect to homepage
 app.get('*', (req, res) => {
-    return res.status(404).send('ERROR 404: Page not found');
+    res.sendFile(path.join(__dirname, '../../dist/index.html'));
 });
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@whether-weather-cluster.guyni.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };

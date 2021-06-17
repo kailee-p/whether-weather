@@ -10,6 +10,7 @@ import './css/App.css';
 
 const App: React.FC = () => {
 
+  //weather data
   const [weatherData, setWeatherData] = useState<{ city: string, country: string, actualTemp: number, feelsLikeTemp: number, weatherTitle: string, weatherDesc: string, timestamp: string }>({
     city: '',
     country: '',
@@ -20,8 +21,13 @@ const App: React.FC = () => {
     timestamp: '',
   })
 
+  //determines if weather data was fetched and renders the weather report
   const [weatherDataFetched, setWeatherDataFetched] = useState(false);
 
+  //error handling
+  const [errorMessage, setErrorMessage] = useState('');
+  console.log('errorMessage', errorMessage)
+  //render weather report if weather data was fetched successfully
   if (weatherDataFetched === true) {
     return (
     <div>
@@ -31,7 +37,12 @@ const App: React.FC = () => {
     </Route>
     <Redirect to={{ pathname: '/weather-report-display' }}  />
     </div>)
+  } 
+
+  if (errorMessage !== '') {
+    window.alert(errorMessage);    
   }
+
   return (
   <div>
     <VideoBackground />
@@ -41,7 +52,8 @@ const App: React.FC = () => {
         <h2>Ask me about the weather!</h2>
         <WeatherForm 
           setWeatherData={setWeatherData}
-          setWeatherDataFetched={setWeatherDataFetched} />
+          setWeatherDataFetched={setWeatherDataFetched}
+          setErrorMessage={setErrorMessage} />
       </div>
     </div>
   </div>

@@ -36,17 +36,34 @@ const WeatherForm = (props) => {
         })
             .then((res) => res.json())
             .then((weatherData) => {
-            props.setWeatherData((prevState) => ({
-                city: weatherData.city,
-                country: weatherData.country,
-                actualTemp: weatherData.actualTemp,
-                feelsLikeTemp: weatherData.feelsLikeTemp,
-                weatherTitle: weatherData.weatherTitle,
-                weatherDesc: weatherData.weatherDesc,
-                timestamp: weatherData.timestamp,
-            }), [props.setWeatherData]);
-            //set fetched to true so weather report will render
-            props.setWeatherDataFetched(true);
+            //check if weatherData has data or is an error 
+            if (weatherData.city !== undefined) {
+                props.setWeatherData((prevState) => ({
+                    city: weatherData.city,
+                    country: weatherData.country,
+                    actualTemp: weatherData.actualTemp,
+                    feelsLikeTemp: weatherData.feelsLikeTemp,
+                    weatherTitle: weatherData.weatherTitle,
+                    weatherDesc: weatherData.weatherDesc,
+                    timestamp: weatherData.timestamp,
+                }), [props.setWeatherData]);
+                //set fetched to true so weather report will render
+                props.setWeatherDataFetched(true);
+            }
+            else { //returns an error
+                if (weatherData === 'ERROR: NO CITIES') {
+                    props.setErrorMessage((prevState) => 'ERROR: Not able to find any cities in your query. Please try again.');
+                }
+                else if (weatherData === 'ERROR: TOO MANY CITIES') {
+                    props.setErrorMessage((prevState) => 'ERROR: There are too many cities in your question. Please try again.');
+                }
+                else if (weatherData === 'ERROR: NO WEATHER DATA') {
+                    props.setErrorMessage((prevState) => 'ERROR: Was not able to retrieve weather data. Please try again.');
+                }
+                else {
+                    props.setErrorMessage((prevState) => 'ERROR: An unknown error occurred. Please try again.');
+                }
+            }
         })
             .catch((err) => console.log('Error in POST request for weather report ', err));
     };

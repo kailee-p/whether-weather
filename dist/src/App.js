@@ -29,6 +29,7 @@ const weather_report_container_1 = __importDefault(require("./containers/weather
 const video_background_1 = __importDefault(require("./components/video-background"));
 require("./css/App.css");
 const App = () => {
+    //weather data
     const [weatherData, setWeatherData] = react_1.useState({
         city: '',
         country: '',
@@ -38,12 +39,20 @@ const App = () => {
         weatherDesc: '',
         timestamp: '',
     });
+    //determines if weather data was fetched and renders the weather report
     const [weatherDataFetched, setWeatherDataFetched] = react_1.useState(false);
+    //error handling
+    const [errorMessage, setErrorMessage] = react_1.useState('');
+    console.log('errorMessage', errorMessage);
+    //render weather report if weather data was fetched successfully
     if (weatherDataFetched === true) {
         return (react_1.default.createElement("div", null,
             react_1.default.createElement(react_router_dom_1.Route, { path: '/weather-report-display' },
                 react_1.default.createElement(weather_report_container_1.default, { weatherData: weatherData })),
             react_1.default.createElement(react_router_dom_1.Redirect, { to: { pathname: '/weather-report-display' } })));
+    }
+    if (errorMessage !== '') {
+        window.alert(errorMessage);
     }
     return (react_1.default.createElement("div", null,
         react_1.default.createElement(video_background_1.default, null),
@@ -51,6 +60,6 @@ const App = () => {
             react_1.default.createElement("div", { id: "weather-form-container" },
                 react_1.default.createElement("h1", null, "Whether Weather"),
                 react_1.default.createElement("h2", null, "Ask me about the weather!"),
-                react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched })))));
+                react_1.default.createElement(weather_form_1.default, { setWeatherData: setWeatherData, setWeatherDataFetched: setWeatherDataFetched, setErrorMessage: setErrorMessage })))));
 };
 exports.default = App;

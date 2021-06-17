@@ -53,7 +53,9 @@ const WeatherSidebar = () => {
     };
     const prevWeatherReports = [];
     if (lastTenWeatherReports.length === 0) {
-        return (react_1.default.createElement("div", null, "There are no previous weather reports in my database!"));
+        return (react_1.default.createElement("div", null,
+            react_1.default.createElement("h3", null, "Recent Weather Reports"),
+            "There are no previous weather reports in my database!"));
     }
     else {
         for (let i = 0; i < lastTenWeatherReports.length; i++) {

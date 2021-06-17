@@ -37,6 +37,7 @@ const WeatherSidebar = () => {
   if (lastTenWeatherReports.length === 0) {
     return (
       <div>
+        <h3>Recent Weather Reports</h3>
         There are no previous weather reports in my database! 
       </div>
     )

@@ -18,18 +18,31 @@ const WeatherForm = (props: any): JSX.Element => {
     })
       .then((res: any) => res.json())
       .then((weatherData: any) => {
-        props.setWeatherData((prevState: any) => ({
-          city: weatherData.city,
-          country: weatherData.country, 
-          actualTemp: weatherData.actualTemp,
-          feelsLikeTemp: weatherData.feelsLikeTemp,
-          weatherTitle: weatherData.weatherTitle,
-          weatherDesc: weatherData.weatherDesc,
-          timestamp: weatherData.timestamp,
-        }), [props.setWeatherData])
-
-        //set fetched to true so weather report will render
-        props.setWeatherDataFetched(true);
+        //check if weatherData has data or is an error 
+        if (weatherData.city !== undefined) {
+          props.setWeatherData((prevState: any) => ({
+            city: weatherData.city,
+            country: weatherData.country, 
+            actualTemp: weatherData.actualTemp,
+            feelsLikeTemp: weatherData.feelsLikeTemp,
+            weatherTitle: weatherData.weatherTitle,
+            weatherDesc: weatherData.weatherDesc,
+            timestamp: weatherData.timestamp,
+          }), [props.setWeatherData])
+  
+          //set fetched to true so weather report will render
+          props.setWeatherDataFetched(true);
+        } else { //returns an error
+          if (weatherData === 'ERROR: NO CITIES') {
+            props.setErrorMessage((prevState: string) => 'ERROR: Not able to find any cities in your query. Please try again.');
+          } else if (weatherData === 'ERROR: TOO MANY CITIES') {
+            props.setErrorMessage((prevState: string) => 'ERROR: There are too many cities in your question. Please try again.');
+          } else if (weatherData === 'ERROR: NO WEATHER DATA') {
+            props.setErrorMessage((prevState: string) => 'ERROR: Was not able to retrieve weather data. Please try again.');
+          } else {
+            props.setErrorMessage((prevState: string) => 'ERROR: An unknown error occurred. Please try again.');
+          }
+        }
       })
       .catch((err: unknown) => console.log('Error in POST request for weather report ', err))
   }
