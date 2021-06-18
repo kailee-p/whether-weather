@@ -19,6 +19,10 @@ npm run dev
 
 Your server will start on localhost:3000 and your frontend will be at localhost:9000. 
 
+## Video Demo
+
+[Video Demo of Whether Weather](https://i.imgur.com/pNA6bgj.mp4)
+
 ## Authors
 
 Kailee Pedersen - https://github.com/kailee-p
