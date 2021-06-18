@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/kailee-p/whether-weather#readme",
   "dependencies": {
-    "@apollo/client": "^3.3.20",
     "@babel/core": "^7.14.5",
     "@babel/preset-env": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
