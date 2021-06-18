@@ -11,7 +11,7 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const path = require('path');
 dotenv_1.default.config();
 const app = express_1.default();
-const PORT = 3000;
+const PORT = (process.env.PORT || 3000);
 app.use(express_1.default.static('dist'));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded());
