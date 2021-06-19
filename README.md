@@ -21,7 +21,7 @@ Your server will start on localhost:3000 and your frontend will be at localhost:
 
 ## Video Demo
 
-![Video Demo of Whether Weather](https://i.imgur.com/pNA6bgj.mp4)
+[Video Demo of Whether Weather](https://i.imgur.com/pNA6bgj.mp4)
 
 ## Authors
 
