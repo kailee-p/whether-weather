@@ -7,7 +7,7 @@
 
 #prev-weather-report-container {
   padding: 5px;
-  max-height: 50vh;
+  max-height: 40vh;
   overflow-y: scroll;
   border: solid 1px black;
 }
